@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/29 13:37:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2024/12/29 13:45:34 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,20 @@ typedef struct s_wall
 
 typedef struct s_camera
 {
-	double pos_x;           // プレイヤーの位置X
-    	double pos_y;           // プレイヤーの位置Y
+	double pos_x;           
+    	double pos_y;           
 
-    	double dir_x;           // 視線方向ベクトルX
-    	double dir_y;           // 視線方向ベクトルY
+    	double dir_x;           
+    	double dir_y;           
 
-    	double plane_x;         // カメラ平面ベクトルX
-    	double plane_y;         // カメラ平面ベクトルY
+    	double plane_x;         
+    	double plane_y;         
 
-    	double step;            // 移動速度
+    	double step;            
 	
 
 }t_camera;
 
-//typedef struct s_rayInfo
-//{
-//	double posX;
-//	double posY;
-//
-//	double dirX;
-//	double dirY;
-//
-//	double planeX;
-//	double planeY;
-//
-//	double time;
-//	double oldTime;
-//}t_rayInfo;
 
 typedef struct s_ddaInfo
 {
