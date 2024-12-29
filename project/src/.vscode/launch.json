@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/hosokawa/42tokyo/level02/fdf/fdf_third/fdf_67_linux_change/src",
+      "program": "/Users/hosokawa/42tokyo/level02/fdf/fdf_third/fdf_67_linux_change/src/build/Debug/outDebug"
+    }
+  ]
+}
