@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 12:28:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/29 13:45:57 by hosokawa         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:47:07 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,13 @@ void readKeys(t_game *game)
 void update_player(t_game *game)
 {
     if (game->wall.key_up)
-        ft_printf("Moving forward\n");
+    {
+	  move_forward(game);
+    }
     if (game->wall.key_down)
-        ft_printf("Moving backward\n");
+    {
+	  move_back(game);
+    }
     if (game->wall.key_left)
         ft_printf("Rotating left\n");
     if (game->wall.key_right)

@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/29 13:46:50 by hosokawa         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:45:12 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	game_loop(t_game *game)
 	double	rayY;
 
 	update_player(game);
+	clear_window(&game->wall);
+
+	//更新した位置を表示
+	//printf("pos_x: %2f\n",game->camera.pos_x);
+	//printf("pos_y: %2f\n",game->camera.pos_y);
 
 	// 再描画処理
 	pixel = 0;
@@ -37,7 +42,6 @@ int	game_loop(t_game *game)
 		draw(pixel, ddaInfo.perpWallDist, &game->wall);//ここら辺は直接gameでもいいな
 		pixel++;
 	}
-
 	mlx_put_image_to_window(game->wall.mlx, game->wall.win, game->wall.img, 0,0);
 	return (0);
 }

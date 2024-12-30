@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/29 13:45:34 by hosokawa         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:43:01 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "get_next_line.h"
 #include "ft_printf.h"
 #include "mlx.h"
+#include <stdio.h>
 
 
 //mlx
@@ -25,8 +26,8 @@
 #define PLAYERX 5.5
 #define PLAYERY 5.5
 
-#define INITDIRX 1
-#define INITDIRY 0
+#define INITDIRX 0
+#define INITDIRY -1
 
 #define INITPLANEX -0.66
 #define INITPLANEY 0.66
@@ -109,7 +110,9 @@ void calculate_dda_algo(int wordMap[10][10],t_ddaInfo *ddaInfo);
 void calculate_perp_hight(t_ddaInfo *ddaInfo);
 
 
+//draw
 void my_pixel_put(int x,int y,int color,t_wall *wall);
+void clear_window(t_wall *wall);
 void drawWorld(int pixel,int drawStart,int drawEnd,t_wall *wall);
 void draw(int pixel,double perpWallDist,t_wall *wall);
 
@@ -120,5 +123,8 @@ int 	close_window(t_game *game);
 void	readKeys(t_game *game);
 void 	update_player(t_game *game);
 
+//move
+void move_forward(t_game *game);
+void move_back(t_game *game);
 
 

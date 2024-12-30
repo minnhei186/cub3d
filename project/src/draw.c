@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/29 11:36:33 by hosokawa         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:47:15 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ void my_pixel_put(int x,int y,int color,t_wall *wall)
 
 	position=wall->addr_pt+(y*wall->size_line+x*(wall->bpp/8));
 	*(unsigned int *)position=color;
+}
+
+void clear_window(t_wall *wall)
+{
+    int x, y;
+    unsigned int background_color = 0x000000; // 黒
+
+    for (y = 0; y < HEIGHT; y++)
+    {
+        for (x = 0; x < WIDTH; x++)
+        {
+            my_pixel_put(x, y, background_color, wall);
+        }
+    }
 }
 
 void drawWorld(int pixel,int drawStart,int drawEnd,t_wall *wall)
