@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/30 15:43:01 by hosokawa         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:17:19 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "ft_printf.h"
 #include "mlx.h"
 #include <stdio.h>
+#include <math.h>
 
 
 //mlx
@@ -126,5 +127,7 @@ void 	update_player(t_game *game);
 //move
 void move_forward(t_game *game);
 void move_back(t_game *game);
+void move_right(t_game *game);
+void move_left(t_game *game);
 
 
