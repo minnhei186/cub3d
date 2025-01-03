@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/30 16:17:19 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:54:30 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 //mlx
 #define WIDTH 1280
 #define HEIGHT 720
+
+//texture
+#define TEXWIDTH 64
+#define TEXHEIGHT 64
 
 
 //rayInfo
@@ -93,7 +97,10 @@ typedef struct s_game
 {
     t_wall      wall;      
     t_camera    camera;    
+
+    int		texture[TEXWIDTH*TEXHEIGHT];
     int         worldMap[10][10]; 
+    
 
 } t_game;
 
@@ -102,10 +109,14 @@ typedef struct s_game
 
 
 
+//init
 void wall_init(t_game *game);
 void camera_init(t_game *game);
 void worldMap_init(t_game *game);
+void texture_init(t_game *game);
 
+
+//dda
 void calculate_start_ddaInfo(double rayX,double rayY,double posX,double posY,t_ddaInfo *ddaInfo);
 void calculate_dda_algo(int wordMap[10][10],t_ddaInfo *ddaInfo);
 void calculate_perp_hight(t_ddaInfo *ddaInfo);
