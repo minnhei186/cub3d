@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/05 13:46:39 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:31:50 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(void)
 	wall_init(&game);
 	camera_init(&game);
 	ddaInfo_init(&game);
+	texInfo_init(&game);
 	worldMap_init(&game);
 	readKeys(&game);
 	mlx_loop_hook(game.wall.mlx, game_loop, &game);
