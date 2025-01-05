@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/30 15:47:15 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:46:26 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,35 @@ void clear_window(t_wall *wall)
     }
 }
 
-void drawWorld(int pixel,int drawStart,int drawEnd,t_wall *wall)
+void drawWorld(int pixel,int drawStart,int drawEnd,t_game *game)
 {
 	 unsigned int color = 0xFF0000; // 赤い壁
 
 	while(drawStart<drawEnd)
 	{
-		my_pixel_put(pixel,drawStart,color,wall);
+		my_pixel_put(pixel,drawStart,color,&game->wall);
 		drawStart++;
 	}
 }
 
-void draw(int pixel,double perpWallDist,t_wall *wall)
+//int get_textX(double perpWallDist,t_game *game)
+//{
+//	double wallX;
+//
+//	if(game->ddaside==0)
+//		wallX=game
+
+void draw(int pixel,t_game *game)
 {
 		int lineHeight;
 		int h;
 		int drawStart;
 		int drawEnd;
 
+
+
 		h=HEIGHT;
-		lineHeight=(int)(1/(perpWallDist)*h);
+		lineHeight=(int)(1/(game->ddaInfo.perpWallDist)*h);
 
 		//プレイヤーの視点を真ん中にして上面と底面の位置を算出
 		drawStart=-lineHeight/2+h/2;
@@ -63,8 +72,11 @@ void draw(int pixel,double perpWallDist,t_wall *wall)
 		if(drawEnd>=h)
 			drawEnd=h-1;
 
+		//textureのx軸方向の割合を取得
+		//texX=get_textX(perpWallDist,game);
+
 		//描画
-		drawWorld(pixel,drawStart,drawEnd,wall);
+		drawWorld(pixel,drawStart,drawEnd,game);
 }
 
 

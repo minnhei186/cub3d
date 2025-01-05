@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/03 13:54:30 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:47:06 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_game
 {
     t_wall      wall;      
     t_camera    camera;    
+    t_ddaInfo  	ddaInfo;
 
     int		texture[TEXWIDTH*TEXHEIGHT];
     int         worldMap[10][10]; 
@@ -112,6 +113,7 @@ typedef struct s_game
 //init
 void wall_init(t_game *game);
 void camera_init(t_game *game);
+void ddaInfo_init(t_game *game);
 void worldMap_init(t_game *game);
 void texture_init(t_game *game);
 
@@ -125,8 +127,8 @@ void calculate_perp_hight(t_ddaInfo *ddaInfo);
 //draw
 void my_pixel_put(int x,int y,int color,t_wall *wall);
 void clear_window(t_wall *wall);
-void drawWorld(int pixel,int drawStart,int drawEnd,t_wall *wall);
-void draw(int pixel,double perpWallDist,t_wall *wall);
+void drawWorld(int pixel,int drawStart,int drawEnd,t_game *game);
+void draw(int pixel,t_game *game);
 
 //event
 int	key_press(int keycode, t_game *game);
