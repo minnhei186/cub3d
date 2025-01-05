@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/05 13:47:06 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:33:44 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,22 @@ typedef struct s_ddaInfo
 	int side;
 }t_ddaInfo;
 
+typedef struct s_texInfo
+{
+	int texNum;
+	int texX;
+
+	int texture[TEXWIDTH*TEXHEIGHT];
+}t_texInfo;
+
+
 typedef struct s_game
 {
     t_wall      wall;      
     t_camera    camera;    
     t_ddaInfo  	ddaInfo;
+    t_texInfo   texInfo;
 
-    int		texture[TEXWIDTH*TEXHEIGHT];
     int         worldMap[10][10]; 
     
 
@@ -115,8 +124,7 @@ void wall_init(t_game *game);
 void camera_init(t_game *game);
 void ddaInfo_init(t_game *game);
 void worldMap_init(t_game *game);
-void texture_init(t_game *game);
-
+void texInfo_init(t_game *game);
 
 //dda
 void calculate_start_ddaInfo(double rayX,double rayY,double posX,double posY,t_ddaInfo *ddaInfo);
@@ -142,5 +150,8 @@ void move_forward(t_game *game);
 void move_back(t_game *game);
 void move_right(t_game *game);
 void move_left(t_game *game);
+
+//texture
+void texture_init(t_game *game);
 
 

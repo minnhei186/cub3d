@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/05 13:48:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:31:07 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ void	ddaInfo_init(t_game *game)
 	game->ddaInfo.hit = 0;
 	game->ddaInfo.side = 0;
 }
+
+void texInfo_init(t_game *game)
+{
+	game->texInfo.texNum=0;
+	game->texInfo.texX=0;
+
+	texture_init(game);
+}
+
 
 void	worldMap_init(t_game *game)
 {
