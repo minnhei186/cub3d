@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/05 14:33:44 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/06 09:50:19 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void calculate_perp_hight(t_ddaInfo *ddaInfo);
 //draw
 void my_pixel_put(int x,int y,int color,t_wall *wall);
 void clear_window(t_wall *wall);
-void drawWorld(int pixel,int drawStart,int drawEnd,t_game *game);
+void drawWorld(int pixel,int drawStart,int drawEnd,double texPos,double step,t_game *game);
 void draw(int pixel,t_game *game);
 
 //event
@@ -153,5 +153,6 @@ void move_left(t_game *game);
 
 //texture
 void texture_init(t_game *game);
+void calculate_texture_information(double rayX,double rayY,t_game *game);
 
 
