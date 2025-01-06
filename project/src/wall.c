@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/05 14:31:50 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/06 09:21:42 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	game_loop(t_game *game)
 			game->camera.pos_y, &game->ddaInfo);
 		calculate_dda_algo(game->worldMap, &game->ddaInfo);
 		calculate_perp_hight(&game->ddaInfo);
+		calculate_texture_information(rayX,rayY,game);
 		draw(pixel,game);
 		pixel++;
 	}

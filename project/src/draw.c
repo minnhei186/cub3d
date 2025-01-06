@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/05 13:46:26 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/06 09:47:08 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ void clear_window(t_wall *wall)
     }
 }
 
-void drawWorld(int pixel,int drawStart,int drawEnd,t_game *game)
+void drawWorld(int pixel,int drawStart,int drawEnd,double texPos,double step, t_game *game)
 {
-	 unsigned int color = 0xFF0000; // 赤い壁
+	unsigned int color = 0xFF0000; // 赤い壁
+	int texY;
+
 
 	while(drawStart<drawEnd)
 	{
+		texY=(int)texPos&(TEXHEIGHT-1);
+		texPos+=step;
+		color=game->texInfo.texture[TEXHEIGHT*texY+game->texInfo.texX];
+
 		my_pixel_put(pixel,drawStart,color,&game->wall);
 		drawStart++;
 	}
 }
 
-//int get_textX(double perpWallDist,t_game *game)
-//{
-//	double wallX;
-//
-//	if(game->ddaside==0)
-//		wallX=game
 
 void draw(int pixel,t_game *game)
 {
@@ -72,11 +72,15 @@ void draw(int pixel,t_game *game)
 		if(drawEnd>=h)
 			drawEnd=h-1;
 
-		//textureのx軸方向の割合を取得
-		//texX=get_textX(perpWallDist,game);
+		//texture
+		double step;
+		double texPos;
+		
+		step=1.0*TEXHEIGHT/lineHeight;
+		texPos=(drawStart-h/2+lineHeight/2)*step;
 
 		//描画
-		drawWorld(pixel,drawStart,drawEnd,game);
+		drawWorld(pixel,drawStart,drawEnd,texPos,step,game);
 }
 
 
