@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/06 09:47:08 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:45:24 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,36 @@ void clear_window(t_wall *wall)
 
 void drawWorld(int pixel,int drawStart,int drawEnd,double texPos,double step, t_game *game)
 {
-	unsigned int color = 0xFF0000; // 赤い壁
+	int i;
+//	unsigned int red_color = 0xFF0000; 
+	unsigned int blue_color=0x0000FF;
+	unsigned int green_color=0x00FF00;
+	unsigned int tex_color;
 	int texY;
 
 
-	while(drawStart<drawEnd)
+
+	i=0;
+	while(i<drawStart)
+	{
+		my_pixel_put(pixel,i,blue_color,&game->wall);
+		i++;
+	}
+	while(i<drawEnd)
 	{
 		texY=(int)texPos&(TEXHEIGHT-1);
 		texPos+=step;
-		color=game->texInfo.texture[TEXHEIGHT*texY+game->texInfo.texX];
+		tex_color=game->texInfo.texture[TEXHEIGHT*texY+game->texInfo.texX];
 
-		my_pixel_put(pixel,drawStart,color,&game->wall);
-		drawStart++;
+		my_pixel_put(pixel,i,tex_color,&game->wall);
+		i++;
 	}
+	while(i<HEIGHT)
+	{
+		my_pixel_put(pixel,i,green_color,&game->wall);
+		i++;
+	}
+
 }
 
 
