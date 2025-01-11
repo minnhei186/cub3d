@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/10 17:01:46 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:44:19 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	game_loop(t_game *game)
 	pixel = 0;
 	while (pixel < WIDTH)
 	{
-
 		camera = 2.0 * (double)pixel / (double)WIDTH - 1.0;
 		rayX = game->camera.dir_x + (game->camera.plane_x * camera);
 		rayY = game->camera.dir_y + (game->camera.plane_y * camera);
@@ -32,11 +31,12 @@ int	game_loop(t_game *game)
 			game->camera.pos_y, &game->ddaInfo);
 		calculate_dda_algo(game->worldMap, &game->ddaInfo);
 		calculate_perp_hight(&game->ddaInfo);
-		calculate_texture_information(rayX,rayY,game);
-		draw(pixel,game);
+		calculate_texture_information(rayX, rayY, game);
+		draw(pixel, game);
 		pixel++;
 	}
-	mlx_put_image_to_window(game->wall.mlx, game->wall.win, game->wall.img, 0,0);
+	mlx_put_image_to_window(game->wall.mlx, game->wall.win, game->wall.img, 0,
+		0);
 	return (0);
 }
 
@@ -44,14 +44,8 @@ int	main(void)
 {
 	t_game	game;
 
-	wall_init(&game);
-	camera_init(&game);
-	ddaInfo_init(&game);
-	texInfo_init(&game);
-	worldMap_init(&game);
-	readKeys(&game);
+	game_init(&game);
 	mlx_loop_hook(game.wall.mlx, game_loop, &game);
 	mlx_loop(game.wall.mlx);
 	return (EXIT_SUCCESS);
 }
-

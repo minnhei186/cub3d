@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 14:35:44 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:36:08 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,17 @@ typedef struct s_game
 } t_game;
 
 
+typedef struct s_draw
+{
+	int drawStart;
+	int drawEnd;
+	int lineHeight;
+
+	double step;
+	double texPos;
+}t_draw;
+
+
 
 
 
@@ -125,17 +136,23 @@ void camera_init(t_game *game);
 void ddaInfo_init(t_game *game);
 void worldMap_init(t_game *game);
 void texInfo_init(t_game *game);
+void game_init(t_game *game);
 
 //dda
 void calculate_start_ddaInfo(double rayX,double rayY,double posX,double posY,t_ddaInfo *ddaInfo);
 void calculate_dda_algo(int wordMap[10][10],t_ddaInfo *ddaInfo);
 void calculate_perp_hight(t_ddaInfo *ddaInfo);
 
+//draw_info
+void init_draw_info(t_draw *draw);
+void get_draw_wall_info(t_draw *draw,double perpWallDist);
+void get_draw_texture_info(t_draw *draw);
+
 
 //draw
 void my_pixel_put(int x,int y,int color,t_wall *wall);
 void clear_window(t_wall *wall);
-void drawWorld(int pixel,int drawStart,int drawEnd,double texPos,double step,t_game *game);
+void drawWorld(int pixel,t_draw *draw,t_game *game);
 void draw(int pixel,t_game *game);
 
 //event
@@ -154,5 +171,4 @@ void move_left(t_game *game);
 //texture
 void texture_init(t_game *game);
 void calculate_texture_information(double rayX,double rayY,t_game *game);
-
 
