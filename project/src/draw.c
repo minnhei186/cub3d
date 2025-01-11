@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/10 16:45:24 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:39:06 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ void drawWorld(int pixel,int drawStart,int drawEnd,double texPos,double step, t_
 	{
 		texY=(int)texPos&(TEXHEIGHT-1);
 		texPos+=step;
-		tex_color=game->texInfo.texture[TEXHEIGHT*texY+game->texInfo.texX];
+		if(game->ddaInfo.side==0)
+			tex_color=game->texInfo.texture[0][TEXHEIGHT*texY+game->texInfo.texX];
+		else
+			tex_color=game->texInfo.texture[1][TEXHEIGHT*texY+game->texInfo.texX];
+
 
 		my_pixel_put(pixel,i,tex_color,&game->wall);
 		i++;

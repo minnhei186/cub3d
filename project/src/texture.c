@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:32:09 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/06 10:05:11 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:37:01 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void texture_init(t_game *game)
 		y=0;
 		while(y<TEXHEIGHT)
 		{
-			game->texInfo.texture[TEXWIDTH*y+x]=65536 * 192 * (x % 16 && y % 16); 
+			game->texInfo.texture[0][TEXWIDTH*y+x]=65536 * 192 * (x % 16 && y % 16); 
+			game->texInfo.texture[1][TEXWIDTH*y+x]=128 + 256 * 128 + 65536 * 128;
 			y++;
 		}
 			x++;
