@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/06 09:09:52 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:47:15 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	camera_init(t_game *game)
 	game->camera.dir_y = INITDIRY;
 	game->camera.plane_x = INITPLANEX;
 	game->camera.plane_y = INITPLANEY;
-	game->camera.step = 0.1; // デフォルトの移動速度を設定
+	game->camera.step = 0.1; 
 }
 
 void	ddaInfo_init(t_game *game)
@@ -52,14 +52,22 @@ void	ddaInfo_init(t_game *game)
 	game->ddaInfo.side = 0;
 }
 
-void texInfo_init(t_game *game)
+void	texInfo_init(t_game *game)
 {
-	game->texInfo.texNum=0;
-	game->texInfo.texX=0;
-
+	game->texInfo.texNum = 0;
+	game->texInfo.texX = 0;
 	texture_init(game);
 }
 
+void	game_init(t_game *game)
+{
+	wall_init(game);
+	camera_init(game);
+	ddaInfo_init(game);
+	texInfo_init(game);
+	worldMap_init(game);
+	readKeys(game);
+}
 
 void	worldMap_init(t_game *game)
 {
@@ -76,16 +84,13 @@ void	worldMap_init(t_game *game)
 				game->worldMap[i][j] = 1;
 			else
 				game->worldMap[i][j] = 0;
-//			ft_printf("%i", game->worldMap[i][j]);
 			j++;
 		}
 		ft_printf("\n");
 		i++;
 	}
-
-	game->worldMap[1][5]=1;
-	game->worldMap[2][5]=1;
-	game->worldMap[3][5]=1;
-	game->worldMap[4][5]=1;
-	
+	game->worldMap[1][5] = 1;
+	game->worldMap[2][5] = 1;
+	game->worldMap[3][5] = 1;
+	game->worldMap[4][5] = 1;
 }

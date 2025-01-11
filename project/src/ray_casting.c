@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 16:22:38 by hosokawa          #+#    #+#             */
-/*   Updated: 2024/12/29 13:46:17 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:48:02 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,30 @@ double	ft_abs(double a)
 void	calculate_start_ddaInfo(double rayX, double rayY, double posX,
 		double posY, t_ddaInfo *ddaInfo)
 {
-	//現在地のセル
+
 	ddaInfo->mapX = (int)posX;
 	ddaInfo->mapY = (int)posY;
-	// deltaX,deltaY　ある辺から次の辺までの距離
+	
 	ddaInfo->deltaDistX = ft_abs(1 / rayX);
 	ddaInfo->deltaDistY = ft_abs(1 / rayY);
-	// ddaInfo->sideDistX,sizeDistY 初期位置から次の辺までの距離
-	if (rayX < 0) //負
+	
+	if (rayX < 0) 
 	{
 		ddaInfo->stepX = -1;
 		ddaInfo->sideDistX = (posX - (ddaInfo->mapX)) * (ddaInfo->deltaDistX);
 	}
-	else //正
+	else 
 	{
 		ddaInfo->stepX = 1;
 		ddaInfo->sideDistX = (1.0 + (ddaInfo->mapX) - posX)
 			* (ddaInfo->deltaDistX);
 	}
-	if (rayY < 0) //負
+	if (rayY < 0) 
 	{
 		ddaInfo->stepY = -1;
 		ddaInfo->sideDistY = (posY - (ddaInfo->mapY)) * (ddaInfo->deltaDistY);
 	}
-	else //正
+	else 
 	{
 		ddaInfo->stepY = 1;
 		ddaInfo->sideDistY = (1.0 + (ddaInfo->mapY) - posY)
