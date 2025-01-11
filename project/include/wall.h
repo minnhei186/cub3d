@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/06 09:50:19 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:35:44 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_texInfo
 	int texNum;
 	int texX;
 
-	int texture[TEXWIDTH*TEXHEIGHT];
+	int texture[2][TEXWIDTH*TEXHEIGHT];
 }t_texInfo;
 
 
