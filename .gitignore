@@ -3,6 +3,7 @@ cub3D
 cub3D.dSYM/
 export.py
 repository_contents.txt
+Wall
 
 # Executables
 *.out
@@ -49,3 +50,4 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+.aider*
