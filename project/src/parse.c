@@ -84,7 +84,7 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	ft_printf("DEBUG: MLX pointer: %p\n", game->wall.mlx);
 	ft_printf("DEBUG: Attempting to read XPM file content...\n");
 	
-	FILE *f = fopen(abs_path, "rb");  // バイナリモードで開く
+	FILE *f = fopen(abs_path, "rb");
 	if (f) {
 		int line_count = 0;
 		ft_printf("DEBUG: XPM file content:\n");
@@ -103,10 +103,18 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 		}
 		
 		char line[1024];
-		while (fgets(line, sizeof(line), f) && line_count < 5) {
-			ft_printf("DEBUG: Line %d: %s", line_count, line);
+		int total_bytes = 0;
+		ft_printf("DEBUG: File content (hex):\n");
+		while (fgets(line, sizeof(line), f) && line_count < 10) {
+			ft_printf("DEBUG: Line %d: ", line_count);
+			for (int i = 0; line[i] && i < 50; i++) {
+				ft_printf("%02x ", (unsigned char)line[i]);
+				total_bytes++;
+			}
+			ft_printf("\nASCII: %s", line);
 			line_count++;
 		}
+		ft_printf("DEBUG: Total bytes read: %d\n", total_bytes);
 		fclose(f);
 	} else {
 		ft_printf("DEBUG: Failed to open file for reading: %s\n", strerror(errno));
