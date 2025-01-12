@@ -115,7 +115,9 @@ void	free_map_data(t_map_data *map_data)
 // マップ関連の文字か判定
 static int is_map_char(char c)
 {
-    return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == ' ');
+    int result = (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == ' ');
+    ft_printf("DEBUG: is_map_char checking '%c': %s\n", c, result ? "true" : "false");
+    return result;
 }
 
 
@@ -156,10 +158,17 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 
 		if (line[i] && is_map_char(line[i]) && line[i] != ' ')  // スペースは無視
 		{
+            ft_printf("DEBUG: Checking map char '%c' at position %d (texture_path_set: %d)\n", 
+                     line[i], i, texture_path_set);
             // テクスチャパスが全て設定されているか確認
             if (texture_path_set != 4)
             {
                 ft_printf("Error: Texture paths must be set before map data.\n");
+                ft_printf("DEBUG: Current texture paths:\n");
+                ft_printf("  NO: %s\n", map_data->north_texture ? map_data->north_texture : "NOT SET");
+                ft_printf("  SO: %s\n", map_data->south_texture ? map_data->south_texture : "NOT SET");
+                ft_printf("  WE: %s\n", map_data->west_texture ? map_data->west_texture : "NOT SET");
+                ft_printf("  EA: %s\n", map_data->east_texture ? map_data->east_texture : "NOT SET");
                 return (1);
             }
             map_start = 1;
