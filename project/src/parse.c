@@ -80,6 +80,13 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 
 	if (!img_ptr)
 	{
+		ft_printf("Error loading texture '%s': ", abs_path);  // pathではなくabs_pathを使用
+		perror("");
+		exit(1);
+	}
+
+	if (!img_ptr)
+	{
 		ft_printf("Error loading texture '%s': ", path);
 		perror("");  // perrorでOSのエラーメッセージを表示
 		exit(1);
