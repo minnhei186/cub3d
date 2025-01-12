@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 13:48:55 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:44:42 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 01:33:27 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wall.h"
+#include "../include/wall.h"
 
 #define MOVESPEED 0.1
 #define ROTSPEED 0.01
@@ -26,28 +26,28 @@ void	move_forward(t_game *game)
 	pos_y = game->camera.pos_y;
 	dir_x = game->camera.dir_x;
 	dir_y = game->camera.dir_y;
-	if (game->worldMap[(int)(pos_x + dir_x * MOVESPEED)][(int)pos_y] != 1)
+	if (game->worldMap[(int)(pos_y + dir_y * MOVESPEED)][(int)pos_x] == 0) //マップ参照を修正 (y, x の順)
 		game->camera.pos_x += dir_x * MOVESPEED;
-	if (game->worldMap[(int)pos_x][(int)(pos_y + dir_y * MOVESPEED)] != 1)
+	if (game->worldMap[(int)pos_y][(int)(pos_x + dir_x * MOVESPEED)] == 0) //マップ参照を修正 (y, x の順)
 		game->camera.pos_y += dir_y * MOVESPEED;
 }
 
 void	move_back(t_game *game)
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
+	double pos_x;
+	double pos_y;
+	double dir_x;
+	double dir_y;
 
 	pos_x = game->camera.pos_x;
 	pos_y = game->camera.pos_y;
 	dir_x = game->camera.dir_x;
 	dir_y = game->camera.dir_y;
-	if (game->worldMap[(int)(pos_x - dir_x * MOVESPEED)][(int)pos_y] != 1)
+	if (game->worldMap[(int)(pos_y - dir_y * MOVESPEED)][(int)pos_x] == 0) //マップ参照を修正 (y, x の順)
 	{
 		game->camera.pos_x -= dir_x * MOVESPEED;
 	}
-	if (game->worldMap[(int)pos_x][(int)(pos_y - dir_y * MOVESPEED)] != 1)
+	if (game->worldMap[(int)pos_y][(int)(pos_x - dir_x * MOVESPEED)] == 0) //マップ参照を修正 (y, x の順)
 	{
 		game->camera.pos_y -= dir_y * MOVESPEED;
 	}

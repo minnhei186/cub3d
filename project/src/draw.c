@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:44:09 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 01:32:40 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wall.h"
+#include "../include/wall.h"
 
 void	my_pixel_put(int x, int y, int color, t_wall *wall)
 {
@@ -55,12 +55,10 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 		texY = (int)draw->texPos & (TEXHEIGHT - 1);
 		draw->texPos += draw->step;
 		if (game->ddaInfo.side == 0)
-			tex_color = game->texInfo.texture[0][TEXHEIGHT * texY
-				+ game->texInfo.texX];
+			tex_color = game->texInfo.texture[game->texInfo.texNum % 2 == 0 ? 2 : 3][TEXHEIGHT * texY + game->texInfo.texX];
 		else
-			tex_color = game->texInfo.texture[1][TEXHEIGHT * texY
-				+ game->texInfo.texX];
-		my_pixel_put(pixel, i, tex_color, &game->wall);
+			tex_color = game->texInfo.texture[game->texInfo.texNum % 2 == 0 ? 0 : 1][TEXHEIGHT * texY + game->texInfo.texX];
+		my_pixel_put(pixel, i, tex_color, &game->wall); // game->texInfoの色を使用
 		i++;
 	}
 	while (i < HEIGHT)

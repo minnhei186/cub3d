@@ -3,54 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:32:09 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:48:09 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 01:32:02 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wall.h"
+#include "../include/wall.h"
 
 
-void	texture_init(t_game *game)
+// void	texture_init(t_game *game)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	x = 0;
+// 	while (x < TEXWIDTH)
+// 	{
+// 		y = 0;
+// 		while (y < TEXHEIGHT)
+// 		{
+// 			game->texInfo.texture[0][TEXWIDTH * y + x] = 65536 * 192 * (x % 16
+// 					&& y % 16);
+// 			game->texInfo.texture[1][TEXWIDTH * y + x] = 128 + 256 * 128 + 65536
+// 				* 128;
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// }
+
+void calculate_texture_information(double rayX, double rayY, t_game *game)
 {
-	int	x;
-	int	y;
+	double wallX;
+	int texX;
 
-	x = 0;
-	while (x < TEXWIDTH)
-	{
-		y = 0;
-		while (y < TEXHEIGHT)
-		{
-			game->texInfo.texture[0][TEXWIDTH * y + x] = 65536 * 192 * (x % 16
-					&& y % 16);
-			game->texInfo.texture[1][TEXWIDTH * y + x] = 128 + 256 * 128 + 65536
-				* 128;
-			y++;
-		}
-		x++;
-	}
-}
+	// game->texInfo.texNum = game->worldMap[game->ddaInfo.mapX][game->ddaInfo.mapY] - 1;
+    game->texInfo.texNum = game->worldMap[game->ddaInfo.mapY][game->ddaInfo.mapX]; //マップ参照を修正
 
-void	calculate_texture_information(double rayX, double rayY, t_game *game)
-{
-	double	wallX;
-	int		texX;
-
-	game->texInfo.texNum = game->worldMap[game->ddaInfo.mapX][game->ddaInfo.mapY]
-		- 1;
 	if (game->ddaInfo.side == 0)
 		wallX = game->camera.pos_y + game->ddaInfo.perpWallDist * rayY;
-	if (game->ddaInfo.side == 1)
+	else
 		wallX = game->camera.pos_x + game->ddaInfo.perpWallDist * rayX;
-	wallX -= floor(wallX);
-	//鏡面処理
-	texX = (int)(wallX * (double)TEXWIDTH);
-	game->texInfo.texX = texX;
+	wallX -= floor((wallX));
+
+    texX = (int)(wallX * (double)TEXWIDTH);
 	if (game->ddaInfo.side == 0 && rayX > 0)
-		game->texInfo.texX = TEXWIDTH - texX - 1;
-	if (game->ddaInfo.side == 1 && rayY > 0)
-		game->texInfo.texX = TEXWIDTH - texX - 1;
+		texX = TEXWIDTH - texX - 1;
+	if (game->ddaInfo.side == 1 && rayY < 0)
+		texX = TEXWIDTH - texX - 1;
+    game->texInfo.texX = texX;
+
 }

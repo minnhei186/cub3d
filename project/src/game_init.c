@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:47:15 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 01:31:23 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wall.h"
+#include "../include/wall.h"
 
 void	wall_init(t_game *game)
 {
@@ -34,7 +34,7 @@ void	camera_init(t_game *game)
 	game->camera.dir_y = INITDIRY;
 	game->camera.plane_x = INITPLANEX;
 	game->camera.plane_y = INITPLANEY;
-	game->camera.step = 0.1; 
+	game->camera.step = 0.1;
 }
 
 void	ddaInfo_init(t_game *game)
@@ -52,11 +52,20 @@ void	ddaInfo_init(t_game *game)
 	game->ddaInfo.side = 0;
 }
 
-void	texInfo_init(t_game *game)
+void texInfo_init(t_game *game)
 {
-	game->texInfo.texNum = 0;
-	game->texInfo.texX = 0;
-	texture_init(game);
+
+    //texture[0][0]はNO(北)
+    //texture[1][0]はSO(南)
+    //texture[2][0]はWE(西)
+    //texture[3][0]はEA(東)
+	//game->texInfo.texNum = 0;
+	//game->texInfo.texX = 0;
+    //texture_init(game); //ハードコードされた初期化は不要
+    game->texInfo.floor_color = 0;
+    game->texInfo.ceilling_color = 0;
+
+
 }
 
 void	game_init(t_game *game)
@@ -65,7 +74,14 @@ void	game_init(t_game *game)
 	camera_init(game);
 	ddaInfo_init(game);
 	texInfo_init(game);
-	worldMap_init(game);
+    //worldMap_init(game); //worldmapの初期化は不要
+    if (get_data(game, "./map.cub")) //パース処理を呼び出し
+    {
+        //エラー処理
+        ft_printf("Error: Failed to parse map file.\n"); //エラーメッセージを出力
+        exit(EXIT_FAILURE);
+
+    }
 	readKeys(game);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/13 00:24:13 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/13 01:38:41 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,16 @@ void			move_left(t_game *game);
 void			texture_init(t_game *game);
 void			calculate_texture_information(double rayX, double rayY,
 					t_game *game);
+
+
+// utils.c
+void    *ft_realloc_double_ptr(void **ptr, size_t size);
+
+// parse.c
+int		get_data(t_game *game, char *file_path);
+void			free_map_data(t_map_data *map_data);
+void			free_split(char **split);
+
+
 
 #endif
