@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 01:19:38 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/13 01:49:46 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/13 02:23:18 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,20 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	int		size_line;
 	int		endian;
 
+	if (!path) // pathがNULLの場合のエラー処理を追加
+	{
+		ft_printf("Error: Texture path is NULL.\n");
+		exit(1);
+	}
+
+	ft_printf("Loading texture %d from '%s'\n", tex_num, path); // パスを表示
+
 	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, path, &width, &height);
+
 	if (!img_ptr)
 	{
-		ft_printf("Error : invalid texture path\n"); //適切なエラー処理を追加
+		ft_printf("Error loading texture '%s': ", path);
+		perror("");  // perrorでOSのエラーメッセージを表示
 		exit(1);
 	}
 	addr_pt = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
@@ -102,6 +112,13 @@ void	free_map_data(t_map_data *map_data)
 	free(map_data);
 }
 
+// マップ関連の文字か判定
+static int is_map_char(char c)
+{
+    return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == ' ');
+}
+
+
 // map.cubのパース (二段階ロード)
 static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 {
@@ -109,106 +126,164 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 	char	**split;
 	int		i;
 	int		map_start;
+    int     line_num = 0;
+    int		split_count;
+	int		texture_path_set;
 	char	*temp;
-    int     line_num;
-    int     split_count; // splitの要素数をカウントする変数
 
 
-	line_num = 0;
-	map_start = 0; //mapが始まったかどうか
+	map_start = 0;
+	texture_path_set = 0; //初期化
+    // map_data の初期化
+	map_data->north_texture = NULL;
+	map_data->south_texture = NULL;
+	map_data->west_texture = NULL;
+	map_data->east_texture = NULL;
+    map_data->map_width = 0;
+    map_data->map_height = 0;
+
+
+	map_data->map = ft_calloc(1, sizeof(char *)); //マップデータの前にメモリ確保
+	if (!map_data->map)
+		return (1);
 	while ((line = get_next_line(fd)))
 	{
 		i = 0;
-        line_num++;
-		ft_printf("Line %d: %s map_start: %d\n", line_num, line,map_start); // 行の内容と行数を表示
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
-		if (map_start)
+		line_num++;
+        ft_printf("Line %d: %s map_start: %d\n", line_num, line, map_start); // 行の内容と行数を表示
+
+		if (line[i] && is_map_char(line[i]))
 		{
-			map_data->map_height++;
-			temp = ft_strtrim(line, " \n");
-			if (!temp)
-				return (1);
-            ft_printf("map[%d]: %s\n", map_data->map_height - 1, temp);
-			map_data->map = ft_realloc_double_ptr((void **)map_data->map,
-													sizeof(char *)
-													* (map_data->map_height
-														+ 1));
-			if (!map_data->map)
-				return (1);
-			map_data->map[map_data->map_height - 1] = temp;
-			//map_data->map[map_data->map_height] = NULL; //不要
+            if(!map_start)
+            {
+                map_start = 1;
+
+            }
+
+            map_data->map_height++;
+
+            temp = ft_strtrim(line, " \n");
+            if (!temp)
+                return (free(line),1);
+
+
+            map_data->map = ft_realloc_double_ptr((void **)map_data->map, sizeof(char *) * (map_data->map_height + 1));
+
+            if (!map_data->map)
+                return (free(line),free(temp), 1);
+            map_data->map[map_data->map_height - 1] = temp;
+
+
+
+            int len = ft_strlen(map_data->map[map_data->map_height - 1]);
+            if (len > map_data->map_width)
+                map_data->map_width = len;
+
+
+
 		}
 		else if (line[i] && line[i] != '\n')
 		{
-			split = ft_split(line + i, ' ');
+		    int comment_start = -1;
+            for (int j = 0; line[i + j] != '\0'; j++)
+            {
+                if (line[i + j] == '#')
+                {
+                    comment_start = j; //コメント開始位置を保存
+                    break;
+                }
+            }
+            if (comment_start != -1)
+            {
+                line[i + comment_start] = '\0'; //コメント部分を'\0'で終端
+            }
+
+
+
+
+            split = ft_split(line + i, ' ');
 			if (!split)
-			{
-				free(line);
-				return (1); // エラー処理
-			}
+                return (free(line), 1); // エラー処理
+
 
             split_count = 0;
-            while (split[split_count])
+            while (split && split[split_count])
                 split_count++;
             ft_printf("split count: %d\n", split_count);
 
 
-            for (int j = 0; split[j]; j++)
+            for (int j = 0; split && split[j]; j++)
             {
                 ft_printf("split[%d]: %s\n", j, split[j]);
             }
-			if (split[0] && split[1]) //split[1]があるかどうかのチェックを追加
+
+
+			if (split && split[0] && split[1])
 			{
 				if (!ft_strncmp(split[0], "NO", 2))
                 {
 					map_data->north_texture = ft_strdup(split[1]);
-                    ft_printf("NO texture: %s\n", map_data->north_texture);
+                    ft_printf("NO texture (in map_data): %s\n", map_data->north_texture); //追加
+                    texture_path_set++;
+
                 }
 				else if (!ft_strncmp(split[0], "SO", 2))
                 {
 					map_data->south_texture = ft_strdup(split[1]);
-					ft_printf("SO texture: %s\n", map_data->south_texture); //追加
+					ft_printf("SO texture (in map_data): %s\n", map_data->south_texture);
+                    texture_path_set++;
+
                 }
 				else if (!ft_strncmp(split[0], "WE", 2))
                 {
+
 					map_data->west_texture = ft_strdup(split[1]);
-					ft_printf("WE texture: %s\n", map_data->west_texture); //追加
+					ft_printf("WE texture (in map_data): %s\n", map_data->west_texture);
+                    texture_path_set++;
+
                 }
 				else if (!ft_strncmp(split[0], "EA", 2))
                 {
 					map_data->east_texture = ft_strdup(split[1]);
-                    ft_printf("EA texture: %s\n", map_data->east_texture);
+                    ft_printf("EA texture (in map_data): %s\n", map_data->east_texture);
+                    texture_path_set++;
+
                 }
 				else if (!ft_strncmp(split[0], "F", 1))
                 {
-
-					game->texInfo.floor_color = get_color(split[1], &i);
+					game->texInfo.floor_color = get_color(split[1], &i); //修正
                     ft_printf("Floor color: %X\n", game->texInfo.floor_color);
                 }
 				else if (!ft_strncmp(split[0], "C", 1))
 					{
-                        game->texInfo.ceilling_color = get_color(split[1], &i);
-                    	ft_printf("Ceilling color: %X\n", game->texInfo.ceilling_color); //追加
+                        game->texInfo.ceilling_color = get_color(split[1], &i); //修正
+                    	ft_printf("Ceilling color: %X\n", game->texInfo.ceilling_color);
 
                     }
 			}
 			free_split(split);
 		}
-		else if (!map_start && line[i] == '\n')
-		{
-			map_start = 1; //改行のみの場合、次の行からマップが始まる
-			map_data->map = ft_calloc(1, sizeof(char *)); //既にcalloc済みのため不要
 
-            if (!map_data->map)
-                return (1);
+        free(line); //free(line)の位置を修正
 
-
-		}
-		free(line);
 	}
 
-    ft_printf("Total lines read: %d\n", line_num); // 全体の行数を表示
+    ft_printf("Total lines read: %d\n", line_num);
+    //全てのテクスチャパスが設定されているかチェック
+    if (texture_path_set != 4)
+    {
+        ft_printf("Error: Not all texture paths were set.\n");
+        return (1);
+    }
+
+
+    //マップの高さと幅が0以上であることを確認する
+    if(map_data->map_height <= 0 || map_data->map_width <= 0)
+        return (1);
+
+
 
 	return (0);
 }
@@ -216,44 +291,130 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 // game構造体へのデータコピー
 static void	copy_map_data_to_game(t_game *game, t_map_data *map_data)
 {
-	int i, j;
-	load_texture(game, map_data->north_texture, 0);
-	load_texture(game, map_data->south_texture, 1);
-	load_texture(game, map_data->west_texture, 2);
-	load_texture(game, map_data->east_texture, 3);
-	// game->texInfo.floor_color = map_data->floor_color;
-	// game->texInfo.ceilling_color = map_data->ceilling_color;
-	//worldmapにコピー(仮実装、エラー処理など必要)
-	i = 0;
-	while (map_data->map[i])
+	int	i;
+	int	j;
+    int player_set = 0;
+
+
+    if (map_data->north_texture)
+	    load_texture(game, map_data->north_texture, 0);
+    if (map_data->south_texture)
+	    load_texture(game, map_data->south_texture, 1);
+    if (map_data->west_texture)
+	    load_texture(game, map_data->west_texture, 2);
+    if (map_data->east_texture)
+	    load_texture(game, map_data->east_texture, 3);
+
+
+
+
+
+    i = 0;
+	while (i < map_data->map_height && i < 10)
 	{
 		j = 0;
-		while (map_data->map[i][j] != '\0' && map_data->map[i][j] != '\n')
+		while (j < map_data->map_width && j < 10)
 		{
-			if (map_data->map[i][j] == '1')
-				game->worldMap[i][j] = 1;
-			else if (map_data->map[i][j] == '0')
-				game->worldMap[i][j] = 0;
-			else if (map_data->map[i][j] == 'N')
-			{
-				game->worldMap[i][j] = 0;
-				game->camera.pos_x = j + 0.5;
-				game->camera.pos_y = i + 0.5;
-				game->camera.dir_x = 0;
-				game->camera.dir_y = -1;
-				game->camera.plane_x = 0.66;
-				game->camera.plane_y = 0;
-			}
-			else
-				game->worldMap[i][j] = 0; //他の文字はとりあえず0で埋める
-			j++;
-		}
-		i++;
-	}
-	game->map_width = j; //マップの幅と高さを設定
-	game->map_height = i;
+            if (j < (int)ft_strlen(map_data->map[i]))
+            {
 
-	ft_printf("map width: %d, map height: %d\n", game->map_width,game->map_height); //マップ幅、高さ表示
+
+                if (map_data->map[i][j] == '1')
+                    game->worldMap[i][j] = 1;
+                else if (map_data->map[i][j] == '0' || map_data->map[i][j] == ' ')
+                    game->worldMap[i][j] = 0;
+                else if (map_data->map[i][j] == 'N' || map_data->map[i][j] == 'S' ||
+                         map_data->map[i][j] == 'W' || map_data->map[i][j] == 'E')
+                {
+
+                    if (player_set) //既にプレイヤーが設定されている場合はエラー
+                    {
+                        ft_printf("Error: Multiple player starting positions defined.\n");
+                        exit(1);
+
+                    }
+                    game->worldMap[i][j] = 0; //プレイヤーの初期位置は床とする
+                    game->camera.pos_x = j + 0.5;
+                    game->camera.pos_y = i + 0.5;
+                    if (map_data->map[i][j] == 'N')
+                    {
+                        game->camera.dir_x = 0;
+                        game->camera.dir_y = -1;
+                        game->camera.plane_x = 0.66;
+                        game->camera.plane_y = 0;
+
+                    }
+                    else if (map_data->map[i][j] == 'S')
+                    {
+                        game->camera.dir_x = 0;
+                        game->camera.dir_y = 1;
+                        game->camera.plane_x = -0.66;
+                        game->camera.plane_y = 0;
+
+
+                    }
+
+                     else if (map_data->map[i][j] == 'E')
+                    {
+                        game->camera.dir_x = 1;
+                        game->camera.dir_y = 0;
+                        game->camera.plane_x = 0;
+                        game->camera.plane_y = 0.66;
+
+
+                    }
+                    else if (map_data->map[i][j] == 'W')
+                    {
+                        game->camera.dir_x = -1;
+                        game->camera.dir_y = 0;
+                        game->camera.plane_x = 0;
+                        game->camera.plane_y = -0.66;
+
+
+                    }
+
+                    player_set++;
+                }
+
+				else // 有効な文字ではない場合はエラーとする
+                {
+					ft_printf("Error: Invalid character in map: '%c'\n", map_data->map[i][j]);
+					exit(1);
+
+                }
+
+            }
+            else
+                game->worldMap[i][j] = 0; //範囲外の値を0で埋める
+
+			j++;
+
+		}
+
+        // マップデータの残りの部分を空白で埋める
+        while (j < 10)
+        {
+            game->worldMap[i][j] = 0;
+            j++;
+        }
+
+		i++;
+
+	}
+	game->map_width = map_data->map_width; //マップの幅と高さを設定
+	game->map_height = map_data->map_height;
+
+	ft_printf("map width: %d, map height: %d\n", game->map_width,
+			game->map_height); //マップ幅、高さ表示
+
+
+    //プレイヤーが設定されていない場合はエラー
+    if (!player_set)
+    {
+
+        ft_printf("Error: No player starting position defined.\n");
+        exit(1);
+    }
 }
 
 int	get_data(t_game *game, char *filepath)
