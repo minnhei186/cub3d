@@ -115,9 +115,16 @@ void	free_map_data(t_map_data *map_data)
 // マップ関連の文字か判定
 static int is_map_char(char c)
 {
-    int result = (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == ' ');
+    // マップデータとして有効な文字のみを許可
+    int result = (c == '0' || c == '1' || c == ' ');
     ft_printf("DEBUG: is_map_char checking '%c': %s\n", c, result ? "true" : "false");
     return result;
+}
+
+// プレイヤーの開始位置を示す文字かどうかを判定
+static int is_player_char(char c)
+{
+    return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
 }
 
 
@@ -156,7 +163,8 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 		line_num++;
         ft_printf("Line %d: %s map_start: %d\n", line_num, line, map_start); // 行の内容と行数を表示
 
-		if (line[i] && is_map_char(line[i]) && line[i] != ' ')  // スペースは無視
+		// マップデータの開始を検出（最初の数字の1が現れた時）
+		if (line[i] && (is_map_char(line[i]) || is_player_char(line[i])) && line[i] != ' ' && !ft_strncmp(&line[i], "1", 1))  // マップは必ず1で始まる
 		{
             ft_printf("DEBUG: Checking map char '%c' at position %d (texture_path_set: %d)\n", 
                      line[i], i, texture_path_set);
