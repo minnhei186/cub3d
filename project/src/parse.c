@@ -154,7 +154,7 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 		line_num++;
         ft_printf("Line %d: %s map_start: %d\n", line_num, line, map_start); // 行の内容と行数を表示
 
-		if (line[i] && is_map_char(line[i]))
+		if (line[i] && is_map_char(line[i]) && line[i] != ' ')  // スペースは無視
 		{
             // テクスチャパスが全て設定されているか確認
             if (texture_path_set != 4)
@@ -222,7 +222,7 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
             }
 
 
-			if (split && split[0] && split[1])
+			if (split && split[0] && split[1] && !map_start)  // map_startがfalseの時のみテクスチャを処理
 			{
 				if (!ft_strncmp(split[0], "NO", 2))
                 {
