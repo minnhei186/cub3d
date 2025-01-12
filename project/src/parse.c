@@ -86,9 +86,7 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	
 	FILE *f = fopen(abs_path, "rb");  // バイナリモードで開く
 	if (f) {
-		char buf[1024];
 		int line_count = 0;
-		size_t bytes_read;
 		ft_printf("DEBUG: XPM file content:\n");
 		ft_printf("DEBUG: File size check:\n");
 		if (fseek(f, 0, SEEK_END) != 0) {
