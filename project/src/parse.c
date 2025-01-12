@@ -80,11 +80,27 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	}
 
 	ft_printf("DEBUG: File exists and is readable\n");
+	ft_printf("DEBUG: MLX pointer: %p\n", game->wall.mlx);
+	ft_printf("DEBUG: Attempting to read XPM file content...\n");
+	
+	FILE *f = fopen(abs_path, "r");
+	if (f) {
+		char buf[256];
+		if (fgets(buf, sizeof(buf), f)) {
+			ft_printf("DEBUG: First line of XPM: %.100s\n", buf);
+		}
+		fclose(f);
+	}
+	
 	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, abs_path, &width, &height);
+	ft_printf("DEBUG: mlx_xpm_file_to_image returned: %p\n", img_ptr);
 
 	if (!img_ptr)
 	{
 		ft_printf("Error loading texture '%s': ", abs_path);
+		ft_printf("DEBUG: MLX initialization state:\n");
+		ft_printf("  MLX pointer: %p\n", game->wall.mlx);
+		ft_printf("  Window pointer: %p\n", game->wall.win);
 		perror("MLX error");
 		exit(1);
 	}
