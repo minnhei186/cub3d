@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:32:09 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/13 01:32:02 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/13 01:57:10 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void calculate_texture_information(double rayX, double rayY, t_game *game)
 	int texX;
 
 	// game->texInfo.texNum = game->worldMap[game->ddaInfo.mapX][game->ddaInfo.mapY] - 1;
-    game->texInfo.texNum = game->worldMap[game->ddaInfo.mapY][game->ddaInfo.mapX]; //マップ参照を修正
+    game->texInfo.texNum = game->worldMap[game->ddaInfo.mapY][game->ddaInfo.mapX];
+    if(game->texInfo.texNum <= 0) //範囲外参照回避のため
+        game->texInfo.texNum = 0;
 
 	if (game->ddaInfo.side == 0)
 		wallX = game->camera.pos_y + game->ddaInfo.perpWallDist * rayY;
