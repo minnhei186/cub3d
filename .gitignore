@@ -2,6 +2,7 @@
 cub3D
 cub3D.dSYM/
 export.py
+repository_contents.txt
 
 # Executables
 *.out
