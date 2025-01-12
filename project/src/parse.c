@@ -54,13 +54,19 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	int		size_line;
 	int		endian;
 
-	if (!path) // pathがNULLの場合のエラー処理を追加
+	if (!path)
 	{
 		ft_printf("Error: Texture path is NULL.\n");
 		exit(1);
 	}
 
-	ft_printf("Loading texture %d from '%s'\n", tex_num, path);
+	ft_printf("DEBUG: Attempting to load texture from path: '%s'\n", path);
+	ft_printf("DEBUG: Current working directory: ");
+	system("pwd");
+	ft_printf("DEBUG: Checking if file exists: ");
+	char command[1024];
+	snprintf(command, sizeof(command), "ls -l '%s' 2>&1", path);
+	system(command);
 
 	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, path, &width, &height);
 
