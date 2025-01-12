@@ -222,7 +222,7 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
             }
 
 
-			if (split && split[0] && split[1] && !map_start)
+			if (split && split[0] && split[1])
 			{
 				if (!ft_strncmp(split[0], "NO", 2))
                 {
@@ -231,28 +231,28 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 					map_data->north_texture = ft_strdup(split[1]);
                     ft_printf("NO texture (in map_data): %s\n", map_data->north_texture);
                     texture_path_set++;
+                    ft_printf("Texture paths set: %d\n", texture_path_set);
                 }
 				else if (!ft_strncmp(split[0], "SO", 2))
                 {
 					map_data->south_texture = ft_strdup(split[1]);
 					ft_printf("SO texture (in map_data): %s\n", map_data->south_texture);
                     texture_path_set++;
-
+                    ft_printf("Texture paths set: %d\n", texture_path_set);
                 }
 				else if (!ft_strncmp(split[0], "WE", 2))
                 {
-
 					map_data->west_texture = ft_strdup(split[1]);
 					ft_printf("WE texture (in map_data): %s\n", map_data->west_texture);
                     texture_path_set++;
-
+                    ft_printf("Texture paths set: %d\n", texture_path_set);
                 }
 				else if (!ft_strncmp(split[0], "EA", 2))
                 {
 					map_data->east_texture = ft_strdup(split[1]);
                     ft_printf("EA texture (in map_data): %s\n", map_data->east_texture);
                     texture_path_set++;
-
+                    ft_printf("Texture paths set: %d\n", texture_path_set);
                 }
 				else if (!ft_strncmp(split[0], "F", 1))
                 {
