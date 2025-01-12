@@ -156,11 +156,13 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 
 		if (line[i] && is_map_char(line[i]))
 		{
-            if(!map_start)
+            // テクスチャパスが全て設定されているか確認
+            if (texture_path_set != 4)
             {
-                map_start = 1;
-
+                ft_printf("Error: Texture paths must be set before map data.\n");
+                return (1);
             }
+            map_start = 1;
 
             map_data->map_height++;
 
@@ -220,14 +222,15 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
             }
 
 
-			if (split && split[0] && split[1])
+			if (split && split[0] && split[1] && !map_start)
 			{
 				if (!ft_strncmp(split[0], "NO", 2))
                 {
+                    if (map_data->north_texture)
+                        free(map_data->north_texture);
 					map_data->north_texture = ft_strdup(split[1]);
-                    ft_printf("NO texture (in map_data): %s\n", map_data->north_texture); //追加
+                    ft_printf("NO texture (in map_data): %s\n", map_data->north_texture);
                     texture_path_set++;
-
                 }
 				else if (!ft_strncmp(split[0], "SO", 2))
                 {
