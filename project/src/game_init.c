@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/13 03:26:05 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/13 03:28:24 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	game_init(t_game *game)
     //worldMap_init(game); //worldmapの初期化は不要
 	game->texInfo.floor_color = 0; //床と天井の色を初期化
 	game->texInfo.ceilling_color = 0;
-    if (get_data(game, "./test.cub")) //パース処理を呼び出し
+    if (get_data(game, "./map.cub")) //パース処理を呼び出し
     {
         //エラー処理
         ft_printf("Error: Failed to parse map file.\n"); //エラーメッセージを出力
