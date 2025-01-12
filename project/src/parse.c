@@ -60,15 +60,23 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 		exit(1);
 	}
 
-	ft_printf("DEBUG: Attempting to load texture from path: '%s'\n", path);
+	char abs_path[1024];
+	char *ret = realpath(path, abs_path);
+	if (!ret) {
+		ft_printf("Error: Failed to resolve absolute path for '%s'\n", path);
+		perror("realpath");
+		exit(1);
+	}
+	
+	ft_printf("DEBUG: Attempting to load texture from absolute path: '%s'\n", abs_path);
 	ft_printf("DEBUG: Current working directory: ");
 	system("pwd");
 	ft_printf("DEBUG: Checking if file exists: ");
 	char command[1024];
-	snprintf(command, sizeof(command), "ls -l '%s' 2>&1", path);
+	snprintf(command, sizeof(command), "ls -l '%s' 2>&1", abs_path);
 	system(command);
 
-	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, path, &width, &height);
+	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, abs_path, &width, &height);
 
 	if (!img_ptr)
 	{
