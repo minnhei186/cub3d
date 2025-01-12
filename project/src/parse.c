@@ -71,24 +71,22 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	ft_printf("DEBUG: Attempting to load texture from absolute path: '%s'\n", abs_path);
 	ft_printf("DEBUG: Current working directory: ");
 	system("pwd");
-	ft_printf("DEBUG: Checking if file exists: ");
-	char command[1024];
-	snprintf(command, sizeof(command), "ls -l '%s' 2>&1", abs_path);
-	system(command);
 
-	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, abs_path, &width, &height);
-
-	if (!img_ptr)
-	{
-		ft_printf("Error loading texture '%s': ", abs_path);  // pathではなくabs_pathを使用
+	// ファイルの存在確認
+	if (access(abs_path, F_OK | R_OK) == -1) {
+		ft_printf("Error: Cannot access texture file '%s': ", abs_path);
 		perror("");
 		exit(1);
 	}
 
+	ft_printf("DEBUG: File exists and is readable\n");
+	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, abs_path, &width, &height);
+
 	if (!img_ptr)
 	{
-		ft_printf("Error loading texture '%s': ", path);
-		perror("");  // perrorでOSのエラーメッセージを表示
+		ft_printf("Error loading texture '%s': ", abs_path);
+		perror("");
+		ft_printf("DEBUG: MLX error message: %s\n", mlx_get_error());
 		exit(1);
 	}
 	addr_pt = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
