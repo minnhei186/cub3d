@@ -86,10 +86,14 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	FILE *f = fopen(abs_path, "r");
 	if (f) {
 		char buf[256];
-		if (fgets(buf, sizeof(buf), f)) {
-			ft_printf("DEBUG: First line of XPM: %.100s\n", buf);
+		int line_count = 0;
+		ft_printf("DEBUG: XPM file content:\n");
+		while (fgets(buf, sizeof(buf), f) && line_count < 5) {
+			ft_printf("  Line %d: %.100s", line_count++, buf);
 		}
 		fclose(f);
+	} else {
+		ft_printf("DEBUG: Failed to open file for reading: %s\n", strerror(errno));
 	}
 	
 	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, abs_path, &width, &height);
