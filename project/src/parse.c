@@ -84,13 +84,23 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	ft_printf("DEBUG: MLX pointer: %p\n", game->wall.mlx);
 	ft_printf("DEBUG: Attempting to read XPM file content...\n");
 	
-	FILE *f = fopen(abs_path, "r");
+	FILE *f = fopen(abs_path, "rb");  // バイナリモードで開く
 	if (f) {
-		char buf[256];
+		char buf[1024];
 		int line_count = 0;
+		size_t bytes_read;
 		ft_printf("DEBUG: XPM file content:\n");
-		while (fgets(buf, sizeof(buf), f) && line_count < 5) {
-			ft_printf("  Line %d: %.100s", line_count++, buf);
+		ft_printf("DEBUG: File size check:\n");
+		fseek(f, 0, SEEK_END);
+		long file_size = ftell(f);
+		fseek(f, 0, SEEK_SET);
+		ft_printf("DEBUG: File size: %ld bytes\n", file_size);
+		
+		while ((bytes_read = fread(buf, 1, sizeof(buf) - 1, f)) > 0 && line_count < 5) {
+			buf[bytes_read] = '\0';
+			ft_printf("DEBUG: Read %zu bytes\n", bytes_read);
+			ft_printf("  Content: %.100s\n", buf);
+			line_count++;
 		}
 		fclose(f);
 	} else {
