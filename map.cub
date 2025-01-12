@@ -1,0 +1,17 @@
+# テクスチャ設定
+NO ./textures/north_texture.xpm  # 北側壁のテクスチャ
+SO ./textures/south_texture.xpm  # 南側壁のテクスチャ
+WE ./textures/west_texture.xpm   # 西側壁のテクスチャ
+EA ./textures/east_texture.xpm   # 東側壁のテクスチャ
+
+# 床と天井の色（RGB形式）
+F 150,75,0    # 床の色: ブラウン系 (R:150, G:75, B:0)
+C 135,206,250 # 天井の色: スカイブルー (R:135, G:206, B:250)
+
+# マップレイアウト
+1111111111
+1000000001
+1000000001
+1000N00001
+1000000001
+1111111111
