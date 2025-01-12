@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/wall.h"
+#include <errno.h>
 
 // 色情報の取得
 static unsigned int	get_color(char *line, int *i)
