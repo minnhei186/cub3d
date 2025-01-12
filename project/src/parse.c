@@ -85,8 +85,7 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 	if (!img_ptr)
 	{
 		ft_printf("Error loading texture '%s': ", abs_path);
-		perror("");
-		ft_printf("DEBUG: MLX error message: %s\n", mlx_get_error());
+		perror("MLX error");
 		exit(1);
 	}
 	addr_pt = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
