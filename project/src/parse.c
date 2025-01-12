@@ -60,11 +60,9 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 		exit(1);
 	}
 
-	char *full_path = ft_strjoin("./project/", path);
-	ft_printf("Loading texture %d from '%s'\n", tex_num, full_path);
+	ft_printf("Loading texture %d from '%s'\n", tex_num, path);
 
-	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, full_path, &width, &height);
-	free(full_path);
+	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, path, &width, &height);
 
 	if (!img_ptr)
 	{
@@ -248,7 +246,9 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
                     if (map_data->north_texture)
                         free(map_data->north_texture);
                     char *trimmed = ft_strtrim(split[1], " \n\t\r");
-					map_data->north_texture = trimmed;
+                    char *temp = ft_strjoin("./", trimmed);
+                    free(trimmed);
+					map_data->north_texture = temp;
                     ft_printf("NO texture (in map_data): %s\n", map_data->north_texture);
                     texture_path_set++;
                     ft_printf("Texture paths set: %d\n", texture_path_set);
@@ -256,7 +256,9 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 				else if (!ft_strncmp(split[0], "SO", 2))
                 {
                     char *trimmed = ft_strtrim(split[1], " \n\t\r");
-					map_data->south_texture = trimmed;
+                    char *temp = ft_strjoin("./", trimmed);
+                    free(trimmed);
+					map_data->south_texture = temp;
 					ft_printf("SO texture (in map_data): %s\n", map_data->south_texture);
                     texture_path_set++;
                     ft_printf("Texture paths set: %d\n", texture_path_set);
@@ -264,7 +266,9 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 				else if (!ft_strncmp(split[0], "WE", 2))
                 {
                     char *trimmed = ft_strtrim(split[1], " \n\t\r");
-					map_data->west_texture = trimmed;
+                    char *temp = ft_strjoin("./", trimmed);
+                    free(trimmed);
+					map_data->west_texture = temp;
 					ft_printf("WE texture (in map_data): %s\n", map_data->west_texture);
                     texture_path_set++;
                     ft_printf("Texture paths set: %d\n", texture_path_set);
@@ -272,7 +276,9 @@ static int	parse_map(int fd, t_game *game, t_map_data *map_data)
 				else if (!ft_strncmp(split[0], "EA", 2))
                 {
                     char *trimmed = ft_strtrim(split[1], " \n\t\r");
-					map_data->east_texture = trimmed;
+                    char *temp = ft_strjoin("./", trimmed);
+                    free(trimmed);
+					map_data->east_texture = temp;
                     ft_printf("EA texture (in map_data): %s\n", map_data->east_texture);
                     texture_path_set++;
                     ft_printf("Texture paths set: %d\n", texture_path_set);
