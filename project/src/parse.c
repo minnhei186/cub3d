@@ -91,15 +91,22 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 		size_t bytes_read;
 		ft_printf("DEBUG: XPM file content:\n");
 		ft_printf("DEBUG: File size check:\n");
-		fseek(f, 0, SEEK_END);
+		if (fseek(f, 0, SEEK_END) != 0) {
+			ft_printf("DEBUG: fseek to end failed: %s\n", strerror(errno));
+		}
 		long file_size = ftell(f);
-		fseek(f, 0, SEEK_SET);
-		ft_printf("DEBUG: File size: %ld bytes\n", file_size);
+		if (file_size == -1) {
+			ft_printf("DEBUG: ftell failed: %s\n", strerror(errno));
+		} else {
+			ft_printf("DEBUG: File size: %ld bytes\n", file_size);
+		}
+		if (fseek(f, 0, SEEK_SET) != 0) {
+			ft_printf("DEBUG: fseek to start failed: %s\n", strerror(errno));
+		}
 		
-		while ((bytes_read = fread(buf, 1, sizeof(buf) - 1, f)) > 0 && line_count < 5) {
-			buf[bytes_read] = '\0';
-			ft_printf("DEBUG: Read %zu bytes\n", bytes_read);
-			ft_printf("  Content: %.100s\n", buf);
+		char line[1024];
+		while (fgets(line, sizeof(line), f) && line_count < 5) {
+			ft_printf("DEBUG: Line %d: %s", line_count, line);
 			line_count++;
 		}
 		fclose(f);
