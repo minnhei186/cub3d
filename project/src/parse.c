@@ -60,9 +60,11 @@ static void	load_texture(t_game *game, char *path, int tex_num)
 		exit(1);
 	}
 
-	ft_printf("Loading texture %d from '%s'\n", tex_num, path); // パスを表示
+	char *full_path = ft_strjoin("./project/", path);
+	ft_printf("Loading texture %d from '%s'\n", tex_num, full_path);
 
-	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, path, &width, &height);
+	img_ptr = mlx_xpm_file_to_image(game->wall.mlx, full_path, &width, &height);
+	free(full_path);
 
 	if (!img_ptr)
 	{
@@ -445,6 +447,11 @@ int	get_data(t_game *game, char *filepath)
 {
 	int			fd;
 	t_map_data	*map_data;
+
+	char cwd[1024];
+	if (getcwd(cwd, sizeof(cwd)) != NULL) {
+		ft_printf("Current working directory: %s\n", cwd);
+	}
 
 	fd = open(filepath, O_RDONLY);
 	if (fd < 0)
