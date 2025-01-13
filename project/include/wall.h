@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:36:08 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:14:26 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ typedef struct s_draw
 
 
 
-
+//error
+void fatal_error_exit(int error_status,char *error_msg);
 
 //init
 void wall_init(t_game *game);

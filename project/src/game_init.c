@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:47:15 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:13:57 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,19 @@
 void	wall_init(t_game *game)
 {
 	game->wall.mlx = mlx_init();
+	if(game->wall.mlx==NULL)
+		fatal_error_exit(1,"error:mlx_init_error");
 	game->wall.win = mlx_new_window(game->wall.mlx, WIDTH, HEIGHT,
 			"wall wall!");
+	if(game->wall.win==NULL)
+		fatal_error_exit(1,"error:mlx_new_window_error");
 	game->wall.img = mlx_new_image(game->wall.mlx, WIDTH, HEIGHT);
+	if(game->wall.img==NULL)
+		fatal_error_exit(1,"error:mlx_new_image_error");
 	game->wall.addr_pt = mlx_get_data_addr(game->wall.img, &(game->wall.bpp),
 			&(game->wall.size_line), &(game->wall.endian));
+	if(game->wall.addr_pt==NULL)
+		fatal_error_exit(1,"error:mlx_get_data_addr_error");
 	game->wall.key_up = 0;
 	game->wall.key_down = 0;
 	game->wall.key_left = 0;
