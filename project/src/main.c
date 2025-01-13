@@ -6,11 +6,16 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:44:19 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:15:29 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
+
+__attribute__((destructor))
+static void destructor() {
+	system("leaks -q Wall");
+}
 
 int	game_loop(t_game *game)
 {
