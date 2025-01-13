@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/13 15:14:26 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:45:12 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 
 
 
+//mlx
 
 typedef struct s_wall
 {
@@ -57,6 +58,25 @@ typedef struct s_wall
     	int key_right;
 }t_wall;
 
+//load_data
+
+typedef struct s_map_data
+{
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	char		**map;
+	int			map_width;
+	int			map_height;
+
+	unsigned int floor_color;
+	unsigned int ceilling_color;
+	
+}				t_map_data;
+
+
+//game
 typedef struct s_camera
 {
 	double pos_x;           
@@ -127,9 +147,14 @@ typedef struct s_draw
 
 
 
+//utils
+void    *ft_realloc_double_ptr(void **ptr, size_t size);
 
 //error
 void fatal_error_exit(int error_status,char *error_msg);
+
+//load_data
+int	get_data(t_map_data *map_data,char *filepath);
 
 //init
 void wall_init(t_game *game);

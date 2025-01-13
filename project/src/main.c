@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/13 15:15:29 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:59:37 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,34 @@ int	game_loop(t_game *game)
 	return (0);
 }
 
+
+void map_data_init(t_map_data *map_data)
+{
+	map_data->north_texure=NULL;
+	map_data->south_texure=NULL;
+	map_data->west_texure=NULL;
+	map_data->east_texure=NULL;
+
+	map_data->map=NULL;
+	map_data->map_width=0;
+	map_data->map_height=0;
+
+	map_data->floor_color=0;
+	map_data->ceilling_color=0;
+}
+
+
+
 int	main(void)
 {
 	t_game	game;
+	t_map_data map_data;
+
+	map_data_init(&map_data);
+	get_data(&map_data,"./map.cub");
 
 	game_init(&game);
+	//copy_data(game,map);
 	mlx_loop_hook(game.wall.mlx, game_loop, &game);
 	mlx_loop(game.wall.mlx);
 	return (EXIT_SUCCESS);
