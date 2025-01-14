@@ -1,0 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_data_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/14 14:34:44 by hosokawa          #+#    #+#             */
+/*   Updated: 2025/01/14 14:35:15 by hosokawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+// 色情報の取得
+
+
+#include "wall.h"
+
+unsigned int	get_color(char *line, int *i)
+{
+	unsigned int r, g, b;
+	int color_count; // 取得した色の数
+	color_count = 0;
+	r = ft_atoi(line + *i);
+	color_count++; // rを取得
+	while (ft_isdigit(line[*i]))
+		(*i)++;
+	if (line[*i] == ',')
+		(*i)++; // ','をスキップ
+	else
+		return (0); // ','がない場合はエラー
+	g = ft_atoi(line + *i);
+	color_count++; // gを取得
+	while (ft_isdigit(line[*i]))
+		(*i)++;
+	if (line[*i] == ',')
+		(*i)++; // ','をスキップ
+	else
+		return (0); // ','がない場合はエラー
+	b = ft_atoi(line + *i);
+	color_count++; // bを取得
+	while (ft_isdigit(line[*i]))
+		(*i)++;
+	if (color_count != 3)
+		return (0); // 3つ揃っていない場合はエラー
+	return (r << 16 | g << 8 | b);
+}
+
+// free split
+void	free_split(char **split)
+{
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+// マップデータの解放
+void	free_map_data(t_map_data *map_data)
+{
+	if (map_data->north_texture)
+		free(map_data->north_texture);
+	if (map_data->south_texture)
+		free(map_data->south_texture);
+	if (map_data->west_texture)
+		free(map_data->west_texture);
+	if (map_data->east_texture)
+		free(map_data->east_texture);
+	if (map_data->map)
+		free_split(map_data->map);
+	free(map_data);
+}
+
+
+// マップ関連の文字か判定
+int	is_map_char(char c)
+{
+	int	result;
+
+	// マップデータとして有効な文字のみを許可
+	result = (c == '0' || c == '1' || c == ' ');
+	ft_printf("DEBUG: is_map_char checking '%c': %s\n", c,
+		result ? "true" : "false");
+	return (result);
+}
+
+// プレイヤーの開始位置を示す文字かどうかを判定
+int	is_player_char(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
+}

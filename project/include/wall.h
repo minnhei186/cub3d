@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/13 16:45:12 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:10:40 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "mlx.h"
 #include <stdio.h>
 #include <math.h>
+#include <errno.h>
 
 
 //mlx
@@ -119,6 +120,9 @@ typedef struct s_texInfo
 	int texX;
 
 	int texture[2][TEXWIDTH*TEXHEIGHT];
+	unsigned int floor_color;
+	unsigned int ceilling_color;
+	
 }t_texInfo;
 
 
@@ -128,7 +132,9 @@ typedef struct s_game
     t_camera    camera;    
     t_ddaInfo  	ddaInfo;
     t_texInfo   texInfo;
+    
 
+    int         **map;
     int         worldMap[10][10]; 
     
 
@@ -154,7 +160,15 @@ void    *ft_realloc_double_ptr(void **ptr, size_t size);
 void fatal_error_exit(int error_status,char *error_msg);
 
 //load_data
-int	get_data(t_map_data *map_data,char *filepath);
+int	get_data(t_map_data *map_data,const char *filepath);
+
+//load_data_utils
+unsigned int	get_color(char *line, int *i);
+void	free_split(char **split);
+void	free_map_data(t_map_data *map_data);
+int	is_map_char(char c);
+int	is_player_char(char c);
+
 
 //init
 void wall_init(t_game *game);
