@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/14 15:10:40 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:04:55 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,19 @@ typedef struct s_map_data
 	unsigned int ceilling_color;
 	
 }				t_map_data;
+
+typedef struct s_use_data
+{
+	int texture[4][TEXWIDTH*TEXHEIGHT];
+	int **map;
+
+	int			map_width;
+	int			map_height;
+
+	unsigned int floor_color;
+	unsigned int ceilling_color;
+}t_use_data;
+
 
 
 //game

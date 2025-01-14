@@ -13,9 +13,7 @@
 
 #include "wall.h"
 
-/*======================================================================
- *  小さなヘルパー関数
- *====================================================================*/
+//utils
 static void	skip_whitespace(const char *line, int *i)
 {
 	while (line[*i] == ' ' || line[*i] == '\t')
@@ -43,9 +41,7 @@ static int	is_map_line(const char *line, int i)
 	return (line[i] && (is_map_char(line[i]) || is_player_char(line[i])));
 }
 
-/*======================================================================
- *  マップ行追加
- *====================================================================*/
+//マップ行追加
 static int	add_map_line(t_map_data *map_data, const char *line)
 {
 	char	*trimmed;
@@ -71,9 +67,7 @@ static int	add_map_line(t_map_data *map_data, const char *line)
 	return (0);
 }
 
-/*======================================================================
- *  テクスチャ・色設定用サブ関数
- *====================================================================*/
+// テクスチャ・色設定用サブ関数
 static void	set_texture(char **dst, char *src, int *count)
 {
 	free(*dst);
@@ -86,9 +80,7 @@ static void	set_color(unsigned int *dst, char *src, int *col_idx)
 	*dst = get_color(src, col_idx);
 }
 
-/*======================================================================
- *  テクスチャ or 色パース
- *====================================================================*/
+ // テクスチャ or 色パース
 static int	parse_texture_or_color(t_map_data *m, char **sp, int *tc, int *ci)
 {
 	if (!sp[0] || !sp[1])
@@ -108,9 +100,7 @@ static int	parse_texture_or_color(t_map_data *m, char **sp, int *tc, int *ci)
 	return (0);
 }
 
-/*======================================================================
- *  マップ行/設定行の処理
- *====================================================================*/
+// マップ行/設定行の処理
 static int	handle_map_line(t_map_data *map_data, char *line, int *tex_count)
 {
 	if (*tex_count < 4)
@@ -154,9 +144,27 @@ static int	handle_config_line(t_map_data *m, char *line, int pos,
 	return (0);
 }
 
-/*======================================================================
- *  メインのパース関数
- *====================================================================*/
+
+static int line_starts_with_texture_or_color(const char *line)
+{
+    // 先頭の空白はあらかじめ skip_whitespace() で飛ばしてある想定
+    // ft_strncmp の第3引数には比較したい文字数を渡す
+    if (!ft_strncmp(line, "NO", 2))
+        return (1);
+    if (!ft_strncmp(line, "SO", 2))
+        return (1);
+    if (!ft_strncmp(line, "WE", 2))
+        return (1);
+    if (!ft_strncmp(line, "EA", 2))
+        return (1);
+    if (!ft_strncmp(line, "F", 1))
+        return (1);
+    if (!ft_strncmp(line, "C", 1))
+        return (1);
+    return (0);
+}
+
+//メインのパース関数
 int	parse_map(int fd, t_map_data *map_data)
 {
 	char	*line;
@@ -166,36 +174,43 @@ int	parse_map(int fd, t_map_data *map_data)
 
 	texture_count = 0;
 	map_started = 0;
-	pos = 0;
 	while ((line = get_next_line(fd)))
 	{
+		pos = 0;
 		remove_comment(line, 0);
 		skip_whitespace(line, &pos);
+		// 空行 or コメントのみ ならスキップ
 		if (!line[pos])
 		{
 			free(line);
 			continue ;
 		}
-		if (is_map_line(line, pos))
+		if (line_starts_with_texture_or_color(&line[pos]))
+		{
+			// もしすでに map_started が true なら
+			// 「マップ行が始まったあとにテクスチャ設定行が来ている」→ エラーにしたい場合もある
+			if (map_started)
+			{
+				ft_printf("Error: Found additional data after map lines.\n");
+				free(line);
+				return (1);
+			}
+			if (handle_config_line(map_data, line, pos, map_started,
+					&texture_count))
+				return (1);
+		}
+		else if (is_map_line(line, pos))
 		{
 			if (handle_map_line(map_data, line, &texture_count))
 				return (1);
 			map_started = 1;
 		}
-		else
-		{
-			if (handle_config_line(map_data, line, pos, map_started,
-					&texture_count))
-				return (1);
-		}
+		
 		free(line);
 	}
 	return (0);
 }
-
-/*======================================================================
- *  ファイルを開いてパースする外部向け関数
- *====================================================================*/
+//ファイルを開いてパース
 int	get_data(t_map_data *map_data, const char *filepath)
 {
 	int	fd;

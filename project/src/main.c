@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/14 14:56:27 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:05:59 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,37 @@ void map_data_init(t_map_data *map_data)
 	map_data->map = ft_calloc(1, sizeof(char *)); //NULL止めよう
 }
 
+
+int	main(void)
+{
+	t_game	game;
+	t_map_data map_data;
+	// t_use_data use_data;
+
+	//ファイルからデータを読む混む
+	map_data_init(&map_data);
+	get_data(&map_data,"small_map.cub");	
+
+
+	//望ましいデータ型に変換
+	// use_data_init(&use_data);	
+	// transrate_data(&use_data);
+
+	//gameとデータを紐付ける
+	game_init(&game);
+	//copy_data(&game,&use_data);
+	
+
+	mlx_loop_hook(game.wall.mlx, game_loop, &game);
+	mlx_loop(game.wall.mlx);
+	return (EXIT_SUCCESS);
+}
+
+
+
+
+
+
 ////このコピー元のデータを示すようにしよう
 //void copy_data(t_game *game,t_map_data *map_data)
 //{
@@ -85,17 +116,3 @@ void map_data_init(t_map_data *map_data)
 
 
 
-int	main(void)
-{
-	t_game	game;
-	t_map_data map_data;
-
-	map_data_init(&map_data);
-	get_data(&map_data,"./map.cub");
-
-	game_init(&game);
-	//copy_data(game,map);
-	mlx_loop_hook(game.wall.mlx, game_loop, &game);
-	mlx_loop(game.wall.mlx);
-	return (EXIT_SUCCESS);
-}
