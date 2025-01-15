@@ -168,6 +168,8 @@ typedef struct s_draw
 
 //utils
 void    *ft_realloc_double_ptr(void **ptr, size_t size);
+void    use_data_init(t_use_data *use_data);
+void    translate_data(t_use_data *use_data, const t_map_data *map_data);
 
 //error
 void fatal_error_exit(int error_status,char *error_msg);
