@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:44:09 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:53:28 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 		my_pixel_put(pixel, i, blue_color, &game->wall);
 		i++;
 	}
+	//高さと横が違う
+	//修正地点
 	while (i < draw->drawEnd)
 	{
 		texY = (int)draw->texPos & (TEXHEIGHT - 1);
@@ -58,7 +60,7 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 			tex_color = game->texInfo.texture[0][TEXHEIGHT * texY
 				+ game->texInfo.texX];
 		else
-			tex_color = game->texInfo.texture[1][TEXHEIGHT * texY
+			tex_color = game->texInfo.texture[0][TEXHEIGHT * texY
 				+ game->texInfo.texX];
 		my_pixel_put(pixel, i, tex_color, &game->wall);
 		i++;

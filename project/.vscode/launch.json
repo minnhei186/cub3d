@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/hosokawa/42tokyo/level04/cub3d/project/src",
-      "program": "/Users/hosokawa/42tokyo/level04/cub3d/project/src/build/Debug/outDebug"
+      "cwd": "/Users/hosokawa/42tokyo/level04/cub3d/project",
+      "program": "/Users/hosokawa/42tokyo/level04/cub3d/project/Wall"
     }
   ]
 }

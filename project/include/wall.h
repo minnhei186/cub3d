@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/14 16:04:55 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:36:32 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #define HEIGHT 720
 
 //texture
-#define TEXWIDTH 64
-#define TEXHEIGHT 64
+#define TEXWIDTH 50
+#define TEXHEIGHT 50
 
 
 //rayInfo
@@ -132,7 +132,7 @@ typedef struct s_texInfo
 	int texNum;
 	int texX;
 
-	int texture[2][TEXWIDTH*TEXHEIGHT];
+	int **texture;
 	unsigned int floor_color;
 	unsigned int ceilling_color;
 	
@@ -181,6 +181,10 @@ void	free_split(char **split);
 void	free_map_data(t_map_data *map_data);
 int	is_map_char(char c);
 int	is_player_char(char c);
+
+//use_data
+void	translate_data(t_use_data *use_data, const t_map_data *map_data);
+void	use_data_init(t_use_data *use_data);
 
 
 //init

@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/14 16:05:59 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:54:12 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,33 @@ void map_data_init(t_map_data *map_data)
 }
 
 
+//void test(t_use_data *use_data)
+//{
+//	int i;
+//	int j;
+//
+//	i=0;
+//	while(i<TEXHEIGHT)
+//	{
+//		j=0;
+//		while(j<TEXWIDTH)
+//		{
+//			printf("%i",use_data->texture[0][i+j]);
+//			j++;
+//		}
+//		printf("\n");
+//		i++;
+//	}
+//	return ;
+//}
+
+
+
 int	main(void)
 {
 	t_game	game;
 	t_map_data map_data;
-	// t_use_data use_data;
+	t_use_data use_data;
 
 	//ファイルからデータを読む混む
 	map_data_init(&map_data);
@@ -76,12 +98,14 @@ int	main(void)
 
 
 	//望ましいデータ型に変換
-	// use_data_init(&use_data);	
-	// transrate_data(&use_data);
+	use_data_init(&use_data);	
+	translate_data(&use_data,&map_data);
+
+	test(&use_data);
 
 	//gameとデータを紐付ける
 	game_init(&game);
-	//copy_data(&game,&use_data);
+	copy_data(&game,&use_data);
 	
 
 	mlx_loop_hook(game.wall.mlx, game_loop, &game);
