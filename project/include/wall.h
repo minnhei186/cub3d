@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/17 11:36:32 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:26:38 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ typedef struct s_texInfo
 	int texNum;
 	int texX;
 
-	int **texture;
+	int (*texture)[TEXWIDTH*TEXHEIGHT];
 	unsigned int floor_color;
 	unsigned int ceilling_color;
 	
@@ -185,6 +185,10 @@ int	is_player_char(char c);
 //use_data
 void	translate_data(t_use_data *use_data, const t_map_data *map_data);
 void	use_data_init(t_use_data *use_data);
+
+//copy_data
+
+void copy_data(t_game *game,t_use_data *use_data);
 
 
 //init

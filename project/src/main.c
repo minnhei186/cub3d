@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/17 11:54:12 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:58:03 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	main(void)
 	use_data_init(&use_data);	
 	translate_data(&use_data,&map_data);
 
-	test(&use_data);
 
 	//gameとデータを紐付ける
 	game_init(&game);
