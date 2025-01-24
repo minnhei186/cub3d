@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/23 16:26:38 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:44:40 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 
 //rayInfo
-#define PLAYERX 5.5
-#define PLAYERY 5.5
+#define PLAYERX 4.5
+#define PLAYERY 2.5
 
 #define INITDIRX 0
 #define INITDIRY -1
@@ -201,7 +201,7 @@ void game_init(t_game *game);
 
 //dda
 void calculate_start_ddaInfo(double rayX,double rayY,double posX,double posY,t_ddaInfo *ddaInfo);
-void calculate_dda_algo(int wordMap[10][10],t_ddaInfo *ddaInfo);
+void calculate_dda_algo(int **map,t_ddaInfo *ddaInfo);
 void calculate_perp_hight(t_ddaInfo *ddaInfo);
 
 //draw_info
