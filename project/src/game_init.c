@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/17 11:39:10 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:48:26 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	wall_init(t_game *game)
 
 void	camera_init(t_game *game)
 {
-	game->camera.pos_x = PLAYERX;
-	game->camera.pos_y = PLAYERY;
+	//逆にする
+	game->camera.pos_x = PLAYERY;
+	game->camera.pos_y = PLAYERX;
 	game->camera.dir_x = INITDIRX;
 	game->camera.dir_y = INITDIRY;
 	game->camera.plane_x = INITPLANEX;
