@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:32:09 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/11 15:48:09 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:19:15 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	calculate_texture_information(double rayX, double rayY, t_game *game)
 	double	wallX;
 	int		texX;
 
-	game->texInfo.texNum = game->worldMap[game->ddaInfo.mapX][game->ddaInfo.mapY]
+	game->texInfo.texNum = game->map[game->ddaInfo.mapX][game->ddaInfo.mapY]
 		- 1;
 	if (game->ddaInfo.side == 0)
 		wallX = game->camera.pos_y + game->ddaInfo.perpWallDist * rayY;

@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/15 13:46:41 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/17 10:59:44 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	use_data_init(t_use_data *use_data)
 	}
 }
 
-static void	load_texture(int *texture_dest, const char *texture_path)
+static void	load_texture(int *texture_dest, char *texture_path)
 {
 	void	*img;
 	char	*addr;

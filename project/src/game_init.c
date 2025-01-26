@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/13 22:50:11 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:39:10 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	texInfo_init(t_game *game)
 {
 	game->texInfo.texNum = 0;
 	game->texInfo.texX = 0;
-	texture_init(game);
+	// texture_init(game);
 }
 
 void	game_init(t_game *game)

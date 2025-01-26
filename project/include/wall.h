@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/14 16:04:55 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:44:40 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 #define HEIGHT 720
 
 //texture
-#define TEXWIDTH 64
-#define TEXHEIGHT 64
+#define TEXWIDTH 50
+#define TEXHEIGHT 50
 
 
 //rayInfo
-#define PLAYERX 5.5
-#define PLAYERY 5.5
+#define PLAYERX 4.5
+#define PLAYERY 2.5
 
 #define INITDIRX 0
 #define INITDIRY -1
@@ -132,7 +132,7 @@ typedef struct s_texInfo
 	int texNum;
 	int texX;
 
-	int texture[2][TEXWIDTH*TEXHEIGHT];
+	int (*texture)[TEXWIDTH*TEXHEIGHT];
 	unsigned int floor_color;
 	unsigned int ceilling_color;
 	
@@ -184,6 +184,14 @@ void	free_map_data(t_map_data *map_data);
 int	is_map_char(char c);
 int	is_player_char(char c);
 
+//use_data
+void	translate_data(t_use_data *use_data, const t_map_data *map_data);
+void	use_data_init(t_use_data *use_data);
+
+//copy_data
+
+void copy_data(t_game *game,t_use_data *use_data);
+
 
 //init
 void wall_init(t_game *game);
@@ -195,7 +203,7 @@ void game_init(t_game *game);
 
 //dda
 void calculate_start_ddaInfo(double rayX,double rayY,double posX,double posY,t_ddaInfo *ddaInfo);
-void calculate_dda_algo(int wordMap[10][10],t_ddaInfo *ddaInfo);
+void calculate_dda_algo(int **map,t_ddaInfo *ddaInfo);
 void calculate_perp_hight(t_ddaInfo *ddaInfo);
 
 //draw_info
