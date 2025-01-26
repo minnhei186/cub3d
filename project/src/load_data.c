@@ -11,7 +11,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wall.h"
+#include "../include/wall.h"
 
 //utils
 static void	skip_whitespace(const char *line, int *i)
@@ -80,7 +80,7 @@ static void	set_color(unsigned int *dst, char *src, int *col_idx)
 	*dst = get_color(src, col_idx);
 }
 
- // テクスチャ or 色パース
+// テクスチャ or 色パース
 static int	parse_texture_or_color(t_map_data *m, char **sp, int *tc, int *ci)
 {
 	if (!sp[0] || !sp[1])
@@ -144,24 +144,21 @@ static int	handle_config_line(t_map_data *m, char *line, int pos,
 	return (0);
 }
 
-
-static int line_starts_with_texture_or_color(const char *line)
+static int	line_starts_with_texture_or_color(const char *line)
 {
-    // 先頭の空白はあらかじめ skip_whitespace() で飛ばしてある想定
-    // ft_strncmp の第3引数には比較したい文字数を渡す
-    if (!ft_strncmp(line, "NO", 2))
-        return (1);
-    if (!ft_strncmp(line, "SO", 2))
-        return (1);
-    if (!ft_strncmp(line, "WE", 2))
-        return (1);
-    if (!ft_strncmp(line, "EA", 2))
-        return (1);
-    if (!ft_strncmp(line, "F", 1))
-        return (1);
-    if (!ft_strncmp(line, "C", 1))
-        return (1);
-    return (0);
+	if (!ft_strncmp(line, "NO", 2))
+		return (1);
+	if (!ft_strncmp(line, "SO", 2))
+		return (1);
+	if (!ft_strncmp(line, "WE", 2))
+		return (1);
+	if (!ft_strncmp(line, "EA", 2))
+		return (1);
+	if (!ft_strncmp(line, "F", 1))
+		return (1);
+	if (!ft_strncmp(line, "C", 1))
+		return (1);
+	return (0);
 }
 
 //メインのパース関数
@@ -179,7 +176,6 @@ int	parse_map(int fd, t_map_data *map_data)
 		pos = 0;
 		remove_comment(line, 0);
 		skip_whitespace(line, &pos);
-		// 空行 or コメントのみ ならスキップ
 		if (!line[pos])
 		{
 			free(line);
@@ -187,8 +183,6 @@ int	parse_map(int fd, t_map_data *map_data)
 		}
 		if (line_starts_with_texture_or_color(&line[pos]))
 		{
-			// もしすでに map_started が true なら
-			// 「マップ行が始まったあとにテクスチャ設定行が来ている」→ エラーにしたい場合もある
 			if (map_started)
 			{
 				ft_printf("Error: Found additional data after map lines.\n");
@@ -205,7 +199,6 @@ int	parse_map(int fd, t_map_data *map_data)
 				return (1);
 			map_started = 1;
 		}
-		
 		free(line);
 	}
 	return (0);
