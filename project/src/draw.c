@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/17 11:56:55 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:04:16 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,13 @@ void	clear_window(t_wall *wall)
 void	drawWorld(int pixel, t_draw *draw, t_game *game)
 {
 	int				i;
-	unsigned int	blue_color;
-	unsigned int	green_color;
 	unsigned int	tex_color;
 	int				texY;
 
-	//	unsigned int red_color = 0xFF0000;
-	blue_color = 0x0000FF;
-	green_color = 0x00FF00;
 	i = 0;
 	while (i < draw->drawStart)
 	{
-		my_pixel_put(pixel, i, blue_color, &game->wall);
+		my_pixel_put(pixel, i, game->texInfo.ceilling_color, &game->wall);
 		i++;
 	}
 	//高さと横が違う
@@ -67,7 +62,7 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 	}
 	while (i < HEIGHT)
 	{
-		my_pixel_put(pixel, i, green_color, &game->wall);
+		my_pixel_put(pixel, i, game->texInfo.floor_color, &game->wall);
 		i++;
 	}
 }

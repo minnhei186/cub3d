@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/24 15:44:40 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:49:48 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 
 //rayInfo
-#define PLAYERX 4.5
-#define PLAYERY 2.5
+#define PLAYERX 1.5
+#define PLAYERY 1.5
 
 #define INITDIRX 0
 #define INITDIRY -1

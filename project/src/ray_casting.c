@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 16:22:38 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/24 15:19:00 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:45:47 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	calculate_dda_algo(int **map, t_ddaInfo *ddaInfo)
 			(ddaInfo->side) = 1;
 		}
 		//壁に衝突したかどうか
+		//変更　modified access order
 		if (map[ddaInfo->mapX][ddaInfo->mapY] == 1)
 			hit = 1;
 	}
