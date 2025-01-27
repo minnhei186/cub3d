@@ -6,33 +6,33 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:32:09 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/24 15:19:15 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:13:28 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
 
-void	texture_init(t_game *game)
-{
-	int	x;
-	int	y;
+// void	texture_init(t_game *game)
+// {
+// 	int	x;
+// 	int	y;
 
-	x = 0;
-	while (x < TEXWIDTH)
-	{
-		y = 0;
-		while (y < TEXHEIGHT)
-		{
-			game->texInfo.texture[0][TEXWIDTH * y + x] = 65536 * 192 * (x % 16
-					&& y % 16);
-			game->texInfo.texture[1][TEXWIDTH * y + x] = 128 + 256 * 128 + 65536
-				* 128;
-			y++;
-		}
-		x++;
-	}
-}
+// 	x = 0;
+// 	while (x < TEXWIDTH)
+// 	{
+// 		y = 0;
+// 		while (y < TEXHEIGHT)
+// 		{
+// 			game->texInfo.texture[0][TEXWIDTH * y + x] = 65536 * 192 * (x % 16
+// 					&& y % 16);
+// 			game->texInfo.texture[1][TEXWIDTH * y + x] = 128 + 256 * 128 + 65536
+// 				* 128;
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// }
 
 void	calculate_texture_information(double rayX, double rayY, t_game *game)
 {
