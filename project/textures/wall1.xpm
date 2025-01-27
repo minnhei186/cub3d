@@ -1,0 +1,95 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    wall1.xpm                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/01/27 16:02:27 by hosokawa          #+#    #+#              #
+#    Updated: 2025/01/27 16:02:35 by hosokawa         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+/* XPM */
+static char *my_texture[] = {
+/* width height num_colors chars_per_pixel */
+"50 50 8 1",
+/*
+  ここでは 8 色を定義していますが、実際に使用しているのは
+  そのうち 6～7 色程度です。
+*/
+"  c #FFFFFF",  /* ' ' (space) => 白 */
+". c #000000",  /* 黒 */
+"X c #FF0000",  /* 赤 */
+"o c #00FF00",  /* 緑 */
+"O c #0000FF",  /* 青 */
+"+ c #FFFF00",  /* 黄 */
+"@ c #FF00FF",  /* マゼンタ */
+"# c #00FFFF",  /* シアン */
+
+/*
+  以下のピクセルデータは 50 行 (各行 50 文字) で構成されます。
+  5×5 のブロック単位(各10ピクセルずつ)でパターンが変化するようになっています。
+*/
+
+/* 行 0～9 (blockRow=0):  [. X o O +] */
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+"..........XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++",
+
+/* 行 10～19 (blockRow=1): [X o O + @] */
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+"XXXXXXXXXXooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@",
+
+/* 行 20～29 (blockRow=2): [o O + @ #] */
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+"ooooooooooOOOOOOOOOO++++++++++@@@@@@@@@@##########",
+
+/* 行 30～39 (blockRow=3): [O + @ # .] */
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+"OOOOOOOOOO++++++++++@@@@@@@@@@##########..........",
+
+/* 行 40～49 (blockRow=4): [+, @, #, ., X] */
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX",
+"++++++++++@@@@@@@@@@##########..........XXXXXXXXXX"
+};
+

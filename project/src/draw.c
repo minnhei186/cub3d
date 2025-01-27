@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/26 13:04:16 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:23:11 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 	}
 	//高さと横が違う
 	//修正地点
+	//ここで南北東西のテクスチャーの割り当てを行う
 	while (i < draw->drawEnd)
 	{
 		texY = (int)draw->texPos & (TEXHEIGHT - 1);
@@ -55,7 +56,7 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 			tex_color = game->texInfo.texture[0][TEXWIDTH * texY
 				+ game->texInfo.texX];
 		else
-			tex_color = game->texInfo.texture[0][TEXWIDTH * texY
+			tex_color = game->texInfo.texture[3][TEXWIDTH * texY
 				+ game->texInfo.texX];
 		my_pixel_put(pixel, i, tex_color, &game->wall);
 		i++;
