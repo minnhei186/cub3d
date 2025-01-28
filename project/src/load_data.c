@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 01:19:38 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/29 03:21:32 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/29 03:29:29 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	set_color(unsigned int *dst, char *src, int *col_idx)
 	*dst = get_color(src, col_idx);
 }
 
-static int	parse_texture_or_color(t_map_data *m, char **sp, int *tc, int *ci)
+int	parse_texture_or_color(t_map_data *m, char **sp, int *tc, int *ci)
 {
 	if (!sp[0] || !sp[1])
 		return (0);
