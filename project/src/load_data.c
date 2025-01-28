@@ -46,6 +46,7 @@ static int	add_map_line(t_map_data *map_data, const char *line)
 {
 	char	*trimmed;
 	int		len;
+	int j;
 
 	trimmed = ft_strtrim(line, " \n");
 	if (!trimmed)
@@ -64,6 +65,31 @@ static int	add_map_line(t_map_data *map_data, const char *line)
 		if (len > map_data->map_width)
 			map_data->map_width = len;
 	}
+
+	// ▼ プレイヤー文字(N, S, E, W)を探して、見つけたら座標と向きを記録
+	j = 0;
+	while (trimmed[j])
+	{
+		if (is_player_char(trimmed[j]))  // 例: 'N','S','E','W'を判定
+		{
+			// すでにプレイヤーが見つかっている場合はエラーにするなどの処理も可能
+			if (map_data->player_found)
+			{
+				ft_printf("Error: More than one player start found.\n");
+				return (-1); // 必要に応じて処理を分岐
+			}
+			map_data->player_dir = trimmed[j];
+			map_data->player_x = j;
+			map_data->player_y = map_data->map_height - 1;
+			map_data->player_found = 1;
+
+			// マップ上ではプレイヤー位置を'0'などに置き換えることが多い
+			// （後で移動可能床として扱うため）
+			trimmed[j] = '0';
+		}
+		j++;
+	}
+
 	return (0);
 }
 
