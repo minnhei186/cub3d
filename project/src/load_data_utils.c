@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:34:44 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 03:00:15 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/29 03:37:14 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned int	get_color(char *line, int *i)
 {
-	unsigned int(r), g, b, color_count = 0;
+	unsigned int (r), g, b, color_count = 0;
 	r = ft_atoi(line + *i);
 	color_count++;
 	while (ft_isdigit(line[*i]))
