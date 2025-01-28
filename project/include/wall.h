@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 03:25:16 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/29 03:34:42 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,21 +171,31 @@ typedef struct s_draw
 //utils
 void				*ft_realloc_double_ptr(void **ptr, size_t size);
 void				use_data_init(t_use_data *use_data);
-void	translate_data(t_use_data *use_data,
-					const t_map_data *map_data);
+void				translate_data(t_use_data *use_data,
+						const t_map_data *map_data);
 
 //error
 void				fatal_error_exit(int error_status, char *error_msg);
 
-//load_data
+// --- load_data関連の関数プロトタイプ ---
 int					get_data(t_map_data *map_data, const char *filepath);
+int					parse_map(int fd, t_map_data *map_data);
+int					parse_texture_or_color(t_map_data *m, char **sp, int *tc,
+						int *ci);
+int					line_starts_with_texture_or_color(const char *line);
+int					handle_config_line(t_map_data *m, char *line, int pos,
+						int map_started, int *tex_count);
+int					add_map_line(t_map_data *map_data, const char *line);
 
-//load_data_utils
+// --- load_data_utils関連の関数プロトタイプ ---
 unsigned int		get_color(char *line, int *i);
 void				free_split(char **split);
 void				free_map_data(t_map_data *map_data);
 int					is_map_char(char c);
 int					is_player_char(char c);
+void				skip_whitespace(const char *line, int *i);
+void				remove_comment(char *line, int start_index);
+int					is_map_line(const char *line, int i);
 
 //use_data
 void	translate_data(t_use_data *use_data,
