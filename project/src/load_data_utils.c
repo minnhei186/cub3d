@@ -14,7 +14,7 @@
 
 unsigned int	get_color(char *line, int *i)
 {
-	unsigned int (r), g, b, color_count = 0;
+	unsigned int(r), g, b, color_count = 0;
 	r = ft_atoi(line + *i);
 	color_count++;
 	while (ft_isdigit(line[*i]))
