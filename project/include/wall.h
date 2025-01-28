@@ -3,38 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/28 12:17:40 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/29 03:25:16 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "get_next_line.h"
-#include "libft.h"
-#include "mlx.h"
-#include <errno.h>
-#include <math.h>
-#include <stdio.h>
+#ifndef WALL_H
+# define WALL_H
+
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "libft.h"
+# include "mlx.h"
+# include <errno.h>
+# include <math.h>
+# include <stdio.h>
 
 //mlx
-#define WIDTH 1280
-#define HEIGHT 720
+# define WIDTH 1280
+# define HEIGHT 720
 
 //texture
-#define TEXWIDTH 50
-#define TEXHEIGHT 50
+# define TEXWIDTH 50
+# define TEXHEIGHT 50
 
 //rayInfo
-#define PLAYERX 1.5
-#define PLAYERY 1.5
+# define PLAYERX 1.5
+# define PLAYERY 1.5
 
-#define INITDIRX 0
-#define INITDIRY -1
+# define INITDIRX 0
+# define INITDIRY -1
 
-#define INITPLANEX -0.66
-#define INITPLANEY 0.66
+# define INITPLANEX -0.66
+# define INITPLANEY 0.66
 
 //mlx
 
@@ -168,8 +171,8 @@ typedef struct s_draw
 //utils
 void				*ft_realloc_double_ptr(void **ptr, size_t size);
 void				use_data_init(t_use_data *use_data);
-void				translate_data(t_use_data *use_data,
-						const t_map_data *map_data);
+void	translate_data(t_use_data *use_data,
+					const t_map_data *map_data);
 
 //error
 void				fatal_error_exit(int error_status, char *error_msg);
@@ -185,8 +188,8 @@ int					is_map_char(char c);
 int					is_player_char(char c);
 
 //use_data
-void				translate_data(t_use_data *use_data,
-						const t_map_data *map_data);
+void	translate_data(t_use_data *use_data,
+					const t_map_data *map_data);
 void				use_data_init(t_use_data *use_data);
 
 //copy_data
@@ -235,3 +238,5 @@ void				move_left(t_game *game);
 void				texture_init(t_game *game);
 void				calculate_texture_information(double rayX, double rayY,
 						t_game *game);
+
+#endif
