@@ -6,11 +6,9 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:34:44 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/16 02:29:04 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/29 03:00:15 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// 色情報の取得
 
 #include "../include/wall.h"
 
@@ -42,7 +40,6 @@ unsigned int	get_color(char *line, int *i)
 	return (r << 16 | g << 8 | b);
 }
 
-// free split
 void	free_split(char **split)
 {
 	size_t	i;
@@ -56,7 +53,6 @@ void	free_split(char **split)
 	free(split);
 }
 
-// マップデータの解放
 void	free_map_data(t_map_data *map_data)
 {
 	if (map_data->north_texture)
