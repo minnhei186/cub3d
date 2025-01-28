@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/25 17:49:48 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:35:48 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ typedef struct s_map_data
 
 	unsigned int floor_color;
 	unsigned int ceilling_color;
-	
+
+	int player_x;
+	int player_y;
+	char player_dir;
+	int player_found;	
 }				t_map_data;
 
 typedef struct s_use_data
