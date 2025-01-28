@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/17 10:59:44 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:22:32 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	use_data_init(t_use_data *use_data)
 	use_data->map_height = 0;
 	use_data->floor_color = 0;
 	use_data->ceilling_color = 0;
+	use_data->player_x = 0.0;
+	use_data->player_y = 0.0;
+	use_data->player_dir_x = 0.0;
+	use_data->player_dir_y = 0.0;
+	use_data->player_plane_x = 0.0;
+	use_data->player_plane_y = 0.0;
 	i = 0;
 	while (i < 4)
 	{
@@ -99,9 +105,50 @@ static void	allocate_map(t_use_data *use_data, const t_map_data *map_data)
 	}
 }
 
+static void	conversion_dir(t_use_data *use_data, const t_map_data *map_data)
+{
+	if (map_data->player_dir == 'N')
+	{
+		use_data->player_dir_x = 0.0;
+		use_data->player_dir_y = -1.0;
+		use_data->player_plane_x = 0.66;
+		use_data->player_plane_y = 0.0;
+	}
+	else if (map_data->player_dir == 'S')
+	{
+		use_data->player_dir_x = 0.0;
+		use_data->player_dir_y = 1.0;
+		use_data->player_plane_x = -0.66;
+		use_data->player_plane_y = 0.0;
+	}
+	else if (map_data->player_dir == 'W')
+	{
+		use_data->player_dir_x = -1.0;
+		use_data->player_dir_y = 0.0;
+		use_data->player_plane_x = 0.0;
+		use_data->player_plane_y = -0.66;
+	}
+	else if (map_data->player_dir == 'E')
+	{
+		use_data->player_dir_x = 1.0;
+		use_data->player_dir_y = 0.0;
+		use_data->player_plane_x = 0.0;
+		use_data->player_plane_y = 0.66;
+	}
+}
+
+static void	conversion_player_info(t_use_data *use_data,
+		const t_map_data *map_data)
+{
+	use_data->player_x = (double)map_data->player_x + 0.5;
+	use_data->player_y = (double)map_data->player_y + 0.5;
+	conversion_dir(use_data, map_data);
+}
+
 void	translate_data(t_use_data *use_data, const t_map_data *map_data)
 {
 	use_data_init(use_data);
+	conversion_player_info(use_data, map_data);
 	load_texture(use_data->texture[0], map_data->north_texture);
 	load_texture(use_data->texture[1], map_data->south_texture);
 	load_texture(use_data->texture[2], map_data->west_texture);
