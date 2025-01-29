@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 03:18:11 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/29 03:22:06 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/29 15:59:55 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,68 +29,110 @@ int	line_starts_with_texture_or_color(const char *line)
 	return (0);
 }
 
-int	handle_config_line(t_map_data *m, char *line, int pos, int map_started,
-		int *tex_count)
+static int	parse_config_line_inner(t_config_data *data)
 {
 	char	**split;
 
-	if (map_started)
+	if (data->map_started)
 	{
 		ft_printf("Error: Found additional data after map lines.\n");
-		free(line);
+		free(data->line);
 		return (1);
 	}
-	split = ft_split(line + pos, ' ');
+	split = ft_split(data->line + data->pos, ' ');
 	if (!split)
 	{
-		free(line);
+		free(data->line);
 		return (1);
 	}
-	if (parse_texture_or_color(m, split, tex_count, &pos))
+	if (parse_texture_or_color(data->m, split, data->tex_count, &data->pos))
 	{
 		free_split(split);
-		free(line);
+		free(data->line);
 		return (1);
 	}
 	free_split(split);
 	return (0);
 }
 
-static int	handle_map_line(t_map_data *map_data, char *line, int *tex_count)
+int	handle_config_line(t_map_data *m, char *line, int pos, int map_started,
+		int *tex_count)
 {
-	if (*tex_count < 4)
+	t_config_data	data;
+
+	data.m = m;
+	data.line = line;
+	data.pos = pos;
+	data.map_started = map_started;
+	data.tex_count = tex_count;
+	return (parse_config_line_inner(&data));
+}
+
+static int	handle_map_line_inner(t_map_line_data *data)
+{
+	if (*data->tex_count < 4)
 	{
 		ft_printf("Error: Texture paths must be set before map data.\n");
-		free(line);
+		free(data->line);
 		return (1);
 	}
-	if (add_map_line(map_data, line) == -1)
+	if (add_map_line(data->map_data, data->line) == -1)
 	{
-		free(line);
+		free(data->line);
 		return (1);
 	}
 	return (0);
 }
 
-static int	process_line(t_map_data *map_data, char *line, int *map_started,
+static int	handle_map_line(t_map_data *map_data, char *line, int *tex_count)
+{
+	t_map_line_data	data;
+
+	data.map_data = map_data;
+	data.line = line;
+	data.tex_count = tex_count;
+	return (handle_map_line_inner(&data));
+}
+
+typedef struct s_process_line_data
+{
+	t_map_data	*map_data;
+	char		*line;
+	int			*map_started;
+	int			*texture_count;
+	int			pos;
+}				t_process_line_data;
+
+static int	process_line_inner(t_process_line_data *data)
+{
+	if (line_starts_with_texture_or_color(&data->line[data->pos]))
+	{
+		if (handle_config_line(data->map_data, data->line, data->pos,
+				*data->map_started, data->texture_count))
+			return (1);
+	}
+	else if (is_map_line(data->line, data->pos))
+	{
+		if (handle_map_line(data->map_data, data->line, data->texture_count))
+			return (1);
+		*data->map_started = 1;
+	}
+	return (0);
+}
+
+int	process_line(t_map_data *map_data, char *line, int *map_started,
 		int *texture_count, int pos)
 {
-	if (line_starts_with_texture_or_color(&line[pos]))
-	{
-		if (handle_config_line(map_data, line, pos, *map_started,
-				texture_count))
-			return (1);
-	}
-	else if (is_map_line(line, pos))
-	{
-		if (handle_map_line(map_data, line, texture_count))
-			return (1);
-		*map_started = 1;
-	}
-	return (0);
+	t_process_line_data	data;
+
+	data.map_data = map_data;
+	data.line = line;
+	data.map_started = map_started;
+	data.texture_count = texture_count;
+	data.pos = pos;
+	return (process_line_inner(&data));
 }
 
-//メインのパース関数
 int	parse_map(int fd, t_map_data *map_data)
 {
 	char	*line;
