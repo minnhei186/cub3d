@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/28 12:17:40 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:12:47 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_wall
     	int key_down;
     	int key_left;
     	int key_right;
+	int key_left_rotate;
+	int key_right_rotate;
+
 }t_wall;
 
 //load_data
@@ -243,6 +246,8 @@ void move_forward(t_game *game);
 void move_back(t_game *game);
 void move_right(t_game *game);
 void move_left(t_game *game);
+void rotate_right(t_game *game);
+void rotate_left(t_game *game);
 
 //texture
 void texture_init(t_game *game);
