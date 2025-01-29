@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 03:34:42 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/29 16:53:30 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,14 @@ typedef struct s_draw
 	double			texPos;
 }					t_draw;
 
+typedef struct s_parse_data
+{
+	t_map_data	*map_data;
+	int			*map_started;
+	int			*texture_count;
+}				t_parse_data;
+
+
 //utils
 void				*ft_realloc_double_ptr(void **ptr, size_t size);
 void				use_data_init(t_use_data *use_data);
@@ -183,8 +191,6 @@ int					parse_map(int fd, t_map_data *map_data);
 int					parse_texture_or_color(t_map_data *m, char **sp, int *tc,
 						int *ci);
 int					line_starts_with_texture_or_color(const char *line);
-int					handle_config_line(t_map_data *m, char *line, int pos,
-						int map_started, int *tex_count);
 int					add_map_line(t_map_data *map_data, const char *line);
 
 // --- load_data_utils関連の関数プロトタイプ ---
@@ -197,8 +203,11 @@ void				skip_whitespace(const char *line, int *i);
 void				remove_comment(char *line, int start_index);
 int					is_map_line(const char *line, int i);
 
+// parse_map_utils.c
+int					process_lines(int fd, t_parse_data *data);
+
 //use_data
-void	translate_data(t_use_data *use_data,
+void				translate_data(t_use_data *use_data,
 					const t_map_data *map_data);
 void				use_data_init(t_use_data *use_data);
 
