@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/24 15:33:40 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:02:53 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	game_loop(t_game *game)
 	}
 	mlx_put_image_to_window(game->wall.mlx, game->wall.win, game->wall.img, 0,
 		0);
+
 	return (0);
 }
 
