@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 12:12:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:44:47 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@
 
 #define INITPLANEX -0.66
 #define INITPLANEY 0.66
+
+//draw_wall
+#define NORTH_INDEX 0
+#define SOUTH_INDEX 1
+#define EAST_INDEX 2 
+#define WEST_INDEX 3
 
 
 
