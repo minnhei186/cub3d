@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 14:10:08 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/31 09:03:58 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,8 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 		my_pixel_put(pixel, i, game->texInfo.ceilling_color, &game->wall);
 		i++;
 	}
-	//高さと横が違う
-	//修正地点
-	//ここで南北東西のテクスチャーの割り当てを行う
 	while (i < draw->drawEnd)
 	{
-		// texY = (int)draw->texPos & (TEXHEIGHT - 1); 修正
-		//大幅に改善　テクスチャーの正い描画、しかし以前として移動した際に不適切な描画となる
-		// texY = (int)draw->texPos % TEXHEIGHT;
-		// if (texY < 0)
-    	// texY += TEXHEIGHT;
-		
-		// ★修正: texYの範囲チェックを明示的に行う
 		texY = (int)(draw->texPos);
 		if (texY < 0)                   // 0未満なら0へ
 			texY = 0;
@@ -83,12 +73,6 @@ void	drawWorld(int pixel, t_draw *draw, t_game *game)
 				tex_color = game->texInfo.texture[NORTH_INDEX][TEXWIDTH * texY
 					+ game->texInfo.texX];
 		}
-		//	if (game->ddaInfo.side == 0)
-		//		tex_color = game->texInfo.texture[0][TEXWIDTH * texY
-		//			+ game->texInfo.texX];
-		//	else
-		//		tex_color = game->texInfo.texture[3][TEXWIDTH * texY
-		//			+ game->texInfo.texX];
 		if ((tex_color & 0xFF000000) == 0)//めっちゃ強引
 			my_pixel_put(pixel, i, tex_color, &game->wall);
 		i++;
