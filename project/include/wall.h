@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 12:44:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:49:51 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ typedef struct s_camera
 }t_camera;
 
 
-typedef struct s_ddaInfo
+typedef struct s_dda_info
 {
 	int mapX;
 	int mapY;
@@ -147,13 +147,11 @@ typedef struct s_ddaInfo
 
 	int hit;
 	int side;
-}t_ddaInfo;
+}t_dda_info;
 
 typedef struct s_texInfo
 {
-	int texNum;
 	int texX;
-
 	int (*texture)[TEXWIDTH*TEXHEIGHT];
 	unsigned int floor_color;
 	unsigned int ceilling_color;
@@ -165,7 +163,7 @@ typedef struct s_game
 {
     t_wall      wall;      
     t_camera    camera;    
-    t_ddaInfo  	ddaInfo;
+    t_dda_info  	dda_info;
     t_texInfo   texInfo;
     
 
@@ -190,8 +188,8 @@ typedef struct s_draw
 
 //utils
 void    *ft_realloc_double_ptr(void **ptr, size_t size);
-void    use_data_init(t_use_data *use_data);
-void    translate_data(t_use_data *use_data, const t_map_data *map_data);
+double	ft_abs(double a);
+
 
 //error
 void fatal_error_exit(int error_status,char *error_msg);
@@ -206,27 +204,28 @@ void	free_map_data(t_map_data *map_data);
 int	is_map_char(char c);
 int	is_player_char(char c);
 
+//map_data
+void	map_data_init(t_map_data *map_data);
+
 //use_data
-void	translate_data(t_use_data *use_data, const t_map_data *map_data);
 void	use_data_init(t_use_data *use_data);
+void	translate_data(t_use_data *use_data, const t_map_data *map_data);
 
-//copy_data
-
+//copy
 void copy_data(t_game *game,t_use_data *use_data);
 
-
-//init
+//game_init
 void wall_init(t_game *game);
 void camera_init(t_game *game);
-void ddaInfo_init(t_game *game);
-void worldMap_init(t_game *game);
+void dda_info_init(t_game *game);
 void texInfo_init(t_game *game);
 void game_init(t_game *game);
 
+
 //dda
-void calculate_start_ddaInfo(double rayX,double rayY,double posX,double posY,t_ddaInfo *ddaInfo);
-void calculate_dda_algo(int **map,t_ddaInfo *ddaInfo);
-void calculate_perp_hight(t_ddaInfo *ddaInfo);
+void calculate_start_dda_info(double ray_x,double ray_y,t_game *game);
+void calculate_dda_algo(int **map,t_dda_info *dda_info);
+void calculate_perp_hight(t_dda_info *dda_info);
 
 //draw_info
 void init_draw_info(t_draw *draw);
@@ -244,7 +243,7 @@ void draw(int pixel,t_game *game);
 int	key_press(int keycode, t_game *game);
 int 	key_release(int keycode, t_game *game);
 int 	close_window(t_game *game);
-void	readKeys(t_game *game);
+void	read_keys(t_game *game);
 void 	update_player(t_game *game);
 
 //move
@@ -257,5 +256,5 @@ void rotate_left(t_game *game);
 
 //texture
 void texture_init(t_game *game);
-void calculate_texture_information(double rayX,double rayY,t_game *game);
+void calculate_texture_information(double ray_x,double ray_y,t_game *game);
 

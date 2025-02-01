@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 13:48:55 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 12:11:58 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:24:10 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,38 +85,4 @@ void	move_left(t_game *game)
 		game->camera.pos_x -= dir_y * MOVESPEED;
 	if (game->map[(int)pos_x][(int)(pos_y + dir_x * MOVESPEED)] != 1)
 		game->camera.pos_y += dir_x * MOVESPEED;
-}
-
-void	rotate_right(t_game *game)
-{
-	double	old_dirX;
-	double	old_planeX;
-
-	old_dirX = game->camera.dir_x;
-	old_planeX = game->camera.plane_x;
-	game->camera.dir_x = game->camera.dir_x * cos(-ROTSPEED)
-		- game->camera.dir_y * sin(-ROTSPEED);
-	game->camera.dir_y = old_dirX * sin(-ROTSPEED) + game->camera.dir_y
-		* cos(-ROTSPEED);
-	game->camera.plane_x = game->camera.plane_x * cos(-ROTSPEED)
-		- game->camera.plane_y * sin(-ROTSPEED);
-	game->camera.plane_y = old_planeX * sin(-ROTSPEED) + game->camera.plane_y
-		* cos(-ROTSPEED);
-}
-
-void	rotate_left(t_game *game)
-{
-	double	old_dirX;
-	double	old_planeX;
-
-	old_dirX = game->camera.dir_x;
-	old_planeX = game->camera.plane_x;
-	game->camera.dir_x = game->camera.dir_x * cos(ROTSPEED) - game->camera.dir_y
-		* sin(ROTSPEED);
-	game->camera.dir_y = old_dirX * sin(ROTSPEED) + game->camera.dir_y
-		* cos(ROTSPEED);
-	game->camera.plane_x = game->camera.plane_x * cos(ROTSPEED)
-		- game->camera.plane_y * sin(ROTSPEED);
-	game->camera.plane_y = old_planeX * sin(ROTSPEED) + game->camera.plane_y
-		* cos(ROTSPEED);
 }
