@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/31 11:49:51 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/01 09:56:07 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,14 +149,14 @@ typedef struct s_dda_info
 	int side;
 }t_dda_info;
 
-typedef struct s_texInfo
+typedef struct s_tex_info
 {
-	int texX;
+	int tex_x;
 	int (*texture)[TEXWIDTH*TEXHEIGHT];
 	unsigned int floor_color;
 	unsigned int ceilling_color;
 	
-}t_texInfo;
+}t_tex_info;
 
 
 typedef struct s_game
@@ -164,7 +164,7 @@ typedef struct s_game
     t_wall      wall;      
     t_camera    camera;    
     t_dda_info  	dda_info;
-    t_texInfo   texInfo;
+    t_tex_info   tex_info;
     
 
     int         **map;
@@ -218,7 +218,7 @@ void copy_data(t_game *game,t_use_data *use_data);
 void wall_init(t_game *game);
 void camera_init(t_game *game);
 void dda_info_init(t_game *game);
-void texInfo_init(t_game *game);
+void tex_info_init(t_game *game);
 void game_init(t_game *game);
 
 
@@ -236,7 +236,7 @@ void get_draw_texture_info(t_draw *draw);
 //draw
 void my_pixel_put(int x,int y,int color,t_wall *wall);
 void clear_window(t_wall *wall);
-void drawWorld(int pixel,t_draw *draw,t_game *game);
+void draw_world(int pixel,t_draw *draw,t_game *game);
 void draw(int pixel,t_game *game);
 
 //event

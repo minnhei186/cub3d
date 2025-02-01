@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/31 11:09:03 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/01 09:56:52 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	dda_info_init(t_game *game)
 	game->dda_info.side = 0;
 }
 
-void	texInfo_init(t_game *game)
+void	tex_info_init(t_game *game)
 {
-	game->texInfo.texX = 0;
-	game->texInfo.floor_color = 0;
-	game->texInfo.ceilling_color = 0;
-	game->texInfo.texture = NULL;
+	game->tex_info.tex_x = 0;
+	game->tex_info.floor_color = 0;
+	game->tex_info.ceilling_color = 0;
+	game->tex_info.texture = NULL;
 }
 
 void	game_init(t_game *game)
@@ -74,7 +74,7 @@ void	game_init(t_game *game)
 	wall_init(game);
 	camera_init(game);
 	dda_info_init(game);
-	texInfo_init(game);
+	tex_info_init(game);
 	game->map = NULL;
 	read_keys(game);
 }
