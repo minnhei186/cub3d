@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:31:32 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 13:48:24 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/01 09:59:02 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_draw_wall_info(t_draw *draw, double perpWallDist)
 	int	h;
 
 	h = HEIGHT;
-	draw->lineHeight = (int)(1 / (perpWallDist)*h);
+	draw->lineHeight = (int)(1 / perpWallDist * h);
 	draw->drawStart = -draw->lineHeight / 2 + h / 2;
 	if (draw->drawStart < 0)
 		draw->drawStart = 0;

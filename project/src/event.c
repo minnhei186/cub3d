@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 12:28:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 12:25:57 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:08:58 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	close_window(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-void	readKeys(t_game *game)
+void	read_keys(t_game *game)
 {
 	mlx_hook(game->wall.win, 2, 1L << 0, (int (*)())key_press, game);
 	mlx_hook(game->wall.win, 3, 1L << 1, (int (*)())key_release, game);

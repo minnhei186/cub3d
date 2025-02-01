@@ -6,86 +6,77 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 16:22:38 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/25 17:45:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:52:36 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
-double	ft_abs(double a)
+static void	caluculate_step_direct(double ray_x, double ray_y, t_game *game)
 {
-	if (a >= 0)
-		return (a);
+	if (ray_x < 0)
+	{
+		game->dda_info.stepX = -1;
+		game->dda_info.sideDistX = (game->camera.pos_x - (game->dda_info.mapX))
+			* (game->dda_info.deltaDistX);
+	}
 	else
-		return (-a);
+	{
+		game->dda_info.stepX = 1;
+		game->dda_info.sideDistX = (1.0 + (game->dda_info.mapX)
+				- game->camera.pos_x) * (game->dda_info.deltaDistX);
+	}
+	if (ray_y < 0)
+	{
+		game->dda_info.stepY = -1;
+		game->dda_info.sideDistY = (game->camera.pos_y - (game->dda_info.mapY))
+			* (game->dda_info.deltaDistY);
+	}
+	else
+	{
+		game->dda_info.stepY = 1;
+		game->dda_info.sideDistY = (1.0 + (game->dda_info.mapY)
+				- game->camera.pos_y) * (game->dda_info.deltaDistY);
+	}
 }
 
-void	calculate_start_ddaInfo(double rayX, double rayY, double posX,
-		double posY, t_ddaInfo *ddaInfo)
+void	calculate_start_dda_info(double ray_x, double ray_y, t_game *game)
 {
-
-	ddaInfo->mapX = (int)posX;
-	ddaInfo->mapY = (int)posY;
-	
-	ddaInfo->deltaDistX = ft_abs(1 / rayX);
-	ddaInfo->deltaDistY = ft_abs(1 / rayY);
-	
-	if (rayX < 0) 
-	{
-		ddaInfo->stepX = -1;
-		ddaInfo->sideDistX = (posX - (ddaInfo->mapX)) * (ddaInfo->deltaDistX);
-	}
-	else 
-	{
-		ddaInfo->stepX = 1;
-		ddaInfo->sideDistX = (1.0 + (ddaInfo->mapX) - posX)
-			* (ddaInfo->deltaDistX);
-	}
-	if (rayY < 0) 
-	{
-		ddaInfo->stepY = -1;
-		ddaInfo->sideDistY = (posY - (ddaInfo->mapY)) * (ddaInfo->deltaDistY);
-	}
-	else 
-	{
-		ddaInfo->stepY = 1;
-		ddaInfo->sideDistY = (1.0 + (ddaInfo->mapY) - posY)
-			* (ddaInfo->deltaDistY);
-	}
+	game->dda_info.mapX = (int)game->camera.pos_x;
+	game->dda_info.mapY = (int)game->camera.pos_y;
+	game->dda_info.deltaDistX = ft_abs(1 / ray_x);
+	game->dda_info.deltaDistY = ft_abs(1 / ray_y);
+	caluculate_step_direct(ray_x, ray_y, game);
 }
 
-void	calculate_dda_algo(int **map, t_ddaInfo *ddaInfo)
+void	calculate_dda_algo(int **map, t_dda_info *dda_info)
 {
 	int	hit;
 
 	hit = 0;
 	while (hit != 1)
 	{
-		// x軸の辺が最短なのでdeltaDistXで更新
-		if ((ddaInfo->sideDistX) < (ddaInfo->sideDistY))
+		if ((dda_info->sideDistX) < (dda_info->sideDistY))
 		{
-			(ddaInfo->sideDistX) += (ddaInfo->deltaDistX);
-			(ddaInfo->mapX) += (ddaInfo->stepX);
-			(ddaInfo->side) = 0;
+			(dda_info->sideDistX) += (dda_info->deltaDistX);
+			(dda_info->mapX) += (dda_info->stepX);
+			(dda_info->side) = 0;
 		}
-		// y軸の辺が最短なのでdeltaDistYで更新
 		else
 		{
-			(ddaInfo->sideDistY) += (ddaInfo->deltaDistY);
-			(ddaInfo->mapY) += (ddaInfo->stepY);
-			(ddaInfo->side) = 1;
+			(dda_info->sideDistY) += (dda_info->deltaDistY);
+			(dda_info->mapY) += (dda_info->stepY);
+			(dda_info->side) = 1;
 		}
-		//壁に衝突したかどうか
-		//変更　modified access order
-		if (map[ddaInfo->mapX][ddaInfo->mapY] == 1)
+		if (map[dda_info->mapX][dda_info->mapY] == 1)
 			hit = 1;
 	}
 }
 
-void	calculate_perp_hight(t_ddaInfo *ddaInfo)
+void	calculate_perp_hight(t_dda_info *dda_info)
 {
-	if (ddaInfo->side == 0)
-		ddaInfo->perpWallDist = (ddaInfo->sideDistX - (ddaInfo->deltaDistX));
+	if (dda_info->side == 0)
+		dda_info->perpWallDist = (dda_info->sideDistX - (dda_info->deltaDistX));
 	else
-		ddaInfo->perpWallDist = (ddaInfo->sideDistY - (ddaInfo->deltaDistY));
+		dda_info->perpWallDist = (dda_info->sideDistY - (dda_info->deltaDistY));
 }
