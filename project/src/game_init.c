@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 09:56:52 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/01 10:44:13 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ void	game_init(t_game *game)
 	dda_info_init(game);
 	tex_info_init(game);
 	game->map = NULL;
+	game->map_height=0;
+	game->map_width=0;
 	read_keys(game);
 }

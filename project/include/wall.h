@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 09:56:07 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/01 10:48:20 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <errno.h>
-
 
 //mlx
 #define WIDTH 1280
@@ -43,6 +42,9 @@
 #define SOUTH_INDEX 1
 #define EAST_INDEX 2 
 #define WEST_INDEX 3
+
+//event
+#define ESC_KEY 53
 
 
 
@@ -168,6 +170,8 @@ typedef struct s_game
     
 
     int         **map;
+    int map_height;
+    int map_width;
     int         worldMap[10][10]; 
     
 
@@ -193,6 +197,8 @@ double	ft_abs(double a);
 
 //error
 void fatal_error_exit(int error_status,char *error_msg);
+
+void	free_all_resources(t_game *game);
 
 //load_data
 int	get_data(t_map_data *map_data,const char *filepath);

@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 12:28:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/31 11:08:58 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/01 10:47:47 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	key_press(int keycode, t_game *game)
 {
+	if (keycode == ESC_KEY)
+	{
+		close_window(game);
+	}
 	if (keycode == 13)
 		game->wall.key_up = 1;
 	if (keycode == 1)
@@ -48,7 +52,7 @@ int	key_release(int keycode, t_game *game)
 
 int	close_window(t_game *game)
 {
-	mlx_destroy_window(game->wall.mlx, game->wall.win);
+	free_all_resources(game);
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
