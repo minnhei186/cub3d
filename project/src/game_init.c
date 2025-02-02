@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 10:44:13 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:19:41 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	wall_init(t_game *game)
 // reverse_fit
 void	camera_init(t_game *game)
 {
-	game->camera.pos_x = PLAYERY;
-	game->camera.pos_y = PLAYERX;
-	game->camera.dir_x = INITDIRX;
-	game->camera.dir_y = INITDIRY;
-	game->camera.plane_x = INITPLANEX;
-	game->camera.plane_y = INITPLANEY;
+	game->camera.pos_x = 0.0;
+	game->camera.pos_y = 0.0;
+	game->camera.dir_x = 0.0;
+	game->camera.dir_y = 0.0;
+	game->camera.plane_x = 0.0;
+	game->camera.plane_y = 0.0;
 	game->camera.step = 0.1;
 }
 
@@ -76,7 +76,7 @@ void	game_init(t_game *game)
 	dda_info_init(game);
 	tex_info_init(game);
 	game->map = NULL;
-	game->map_height=0;
-	game->map_width=0;
+	game->map_height = 0;
+	game->map_width = 0;
 	read_keys(game);
 }

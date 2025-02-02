@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 10:48:20 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:18:32 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,19 @@ typedef struct s_wall
 
 
 //load_data
+
+
+typedef struct s_img_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		width;
+	int		height;
+}			t_img_data;
+
 
 typedef struct s_map_data
 {
@@ -198,12 +211,14 @@ typedef struct s_parse_data
 }				t_parse_data;
 
 
+//free
+void	free_all_resources(t_game *game);
+
+
 //utils
 
+double	ft_abs(double a);
 void				*ft_realloc_double_ptr(void **ptr, size_t size);
-void				use_data_init(t_use_data *use_data);
-void				translate_data(t_use_data *use_data,
-						const t_map_data *map_data);
 
 //error
 void				fatal_error_exit(int error_status, char *error_msg);
@@ -233,11 +248,20 @@ int					process_lines(int fd, t_parse_data *data);
 //map_data
 void	map_data_init(t_map_data *map_data);
 
-//use_data
 
+//set_direction
+void	north_direction(t_use_data *use_data);
+void	south_direction(t_use_data *use_data);
+void	west_direction(t_use_data *use_data);
+void	east_direction(t_use_data *use_data);
+
+//use_data
+void	use_data_init(t_use_data *use_data);
 void				translate_data(t_use_data *use_data,
 					const t_map_data *map_data);
-void				use_data_init(t_use_data *use_data);
+
+//load_texture_for_use_data
+void load_texture(void *mlx, int *texture, char *path);
 
 //copy_data
 

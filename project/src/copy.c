@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:25:14 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 10:45:22 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:29:30 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	copy_data(t_game *game, t_use_data *use_data)
 {
-
 	game->tex_info.texture = use_data->texture;
 	game->map = use_data->map;
-	game->map_height=use_data->map_height;
-	game->map_width=use_data->map_width;
+	game->map_height = use_data->map_height;
+	game->map_width = use_data->map_width;
 	game->tex_info.floor_color = use_data->floor_color;
 	game->tex_info.ceilling_color = use_data->ceilling_color;
 	game->camera.pos_x = use_data->player_y;

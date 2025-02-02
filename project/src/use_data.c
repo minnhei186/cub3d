@@ -6,12 +6,11 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/31 10:47:09 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:14:45 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wall.h"
-
 
 void	use_data_init(t_use_data *use_data)
 {
@@ -42,30 +41,6 @@ void	use_data_init(t_use_data *use_data)
 	}
 }
 
-static void	load_texture(void *mlx, int *texture, char *path)
-{
-	void	*img;
-	char	*addr;
-
-	int (bpp), size_line, endian;
-	int (x), y;
-	img = mlx_xpm_file_to_image(mlx, path, &x, &y);
-	if (!img || x != TEXWIDTH || y != TEXHEIGHT)
-		fatal_error_exit(1, "error: invalid texture");
-	addr = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-	if (!addr)
-		fatal_error_exit(1, "error: mlx_get_data_addr failed");
-	y = -1;
-	while (++y < TEXHEIGHT)
-	{
-		x = -1;
-		while (++x < TEXWIDTH)
-			texture[y * TEXWIDTH + x] = *(unsigned int *)(addr + (y * size_line
-						+ x * (bpp / 8)));
-	}
-	mlx_destroy_image(mlx, img);
-}
-
 static void	allocate_map(t_use_data *data, const t_map_data *map_data)
 {
 	int	y;
@@ -86,26 +61,23 @@ static void	allocate_map(t_use_data *data, const t_map_data *map_data)
 	}
 }
 
-static void	set_player_dir(t_use_data *data, char dir)
+static void	conversion_dir(t_use_data *use_data, const t_map_data *map_data)
 {
-	int	index;
+	if (map_data->player_dir == 'N')
+		north_direction(use_data);
+	else if (map_data->player_dir == 'S')
+		south_direction(use_data);
+	else if (map_data->player_dir == 'W')
+		west_direction(use_data);
+	else if (map_data->player_dir == 'E')
+		east_direction(use_data);
+}
 
-	double (dir_x)[4] = {0.0, 0.0, -1.0, 1.0};
-	double (dir_y)[4] = {-1.0, 1.0, 0.0, 0.0};
-	double (plane_x)[4] = {0.66, -0.66, 0.0, 0.0};
-	double (plane_y)[4] = {0.0, 0.0, -0.66, 0.66};
-	if (dir == 'N')
-		index = 0;
-	else if (dir == 'S')
-		index = 1;
-	else if (dir == 'W')
-		index = 2;
-	else
-		index = 3;
-	data->player_dir_x = dir_x[index];
-	data->player_dir_y = dir_y[index];
-	data->player_plane_x = plane_x[index];
-	data->player_plane_y = plane_y[index];
+static void	set_player(t_use_data *use_data, const t_map_data *map_data)
+{
+	use_data->player_x = (double)map_data->player_x + 0.5;
+	use_data->player_y = (double)map_data->player_y + 0.5;
+	conversion_dir(use_data, map_data);
 }
 
 void	translate_data(t_use_data *data, const t_map_data *map)
@@ -116,9 +88,7 @@ void	translate_data(t_use_data *data, const t_map_data *map)
 	if (!mlx)
 		fatal_error_exit(1, "error: mlx_init failed");
 	use_data_init(data);
-	data->player_x = (double)map->player_x + 0.5;
-	data->player_y = (double)map->player_y + 0.5;
-	set_player_dir(data, map->player_dir);
+	set_player(data, map);
 	load_texture(mlx, data->texture[0], map->north_texture);
 	load_texture(mlx, data->texture[1], map->south_texture);
 	load_texture(mlx, data->texture[2], map->west_texture);
