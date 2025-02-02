@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   copy.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:25:14 by hosokawa          #+#    #+#             */
 /*   Updated: 2025/02/01 10:45:22 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wall.h"
+#include "../include/wall.h"
 
 void	copy_data(t_game *game, t_use_data *use_data)
 {
+
 	game->tex_info.texture = use_data->texture;
 	game->map = use_data->map;
 	game->map_height=use_data->map_height;
