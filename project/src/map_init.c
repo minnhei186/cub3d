@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 13:52:29 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 09:22:13 by hosokawa         ###   ########.fr       */
+/*   Created: 2025/01/31 10:38:51 by hosokawa          #+#    #+#             */
+/*   Updated: 2025/01/31 11:00:01 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
-// system call error 0
-// custum error 1
-
-void	system_error(char *error_msg)
+void	map_data_init(t_map_data *map_data)
 {
-	perror(error_msg);
-	exit(EXIT_FAILURE);
-}
-
-void	custum_error(char *error_msg)
-{
-	write(1, error_msg, ft_strlen(error_msg));
-	write(1, "\n", 1);
-	exit(EXIT_FAILURE);
-}
-
-void	fatal_error_exit(int error_status, char *error_msg)
-{
-	if (error_status == 0)
-		system_error(error_msg);
-	else if (error_status == 1)
-		custum_error(error_msg);
+	map_data->north_texture = NULL;
+	map_data->south_texture = NULL;
+	map_data->west_texture = NULL;
+	map_data->east_texture = NULL;
+	map_data->map = NULL;
+	map_data->map_width = 0;
+	map_data->map_height = 0;
+	map_data->floor_color = 0;
+	map_data->ceilling_color = 0;
+	map_data->map = ft_calloc(1, sizeof(char *));
+	if (map_data->map == NULL)
+		fatal_error_exit(0, "map_data_malloc_error");
 }

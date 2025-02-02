@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 13:52:29 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 09:22:13 by hosokawa         ###   ########.fr       */
+/*   Created: 2025/02/01 10:39:44 by hosokawa          #+#    #+#             */
+/*   Updated: 2025/02/01 10:43:17 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
-// system call error 0
-// custum error 1
-
-void	system_error(char *error_msg)
+void	free_all_resources(t_game *game)
 {
-	perror(error_msg);
-	exit(EXIT_FAILURE);
-}
+	int	i;
 
-void	custum_error(char *error_msg)
-{
-	write(1, error_msg, ft_strlen(error_msg));
-	write(1, "\n", 1);
-	exit(EXIT_FAILURE);
-}
-
-void	fatal_error_exit(int error_status, char *error_msg)
-{
-	if (error_status == 0)
-		system_error(error_msg);
-	else if (error_status == 1)
-		custum_error(error_msg);
+	if (game->wall.img)
+		mlx_destroy_image(game->wall.mlx, game->wall.img);
+	if (game->wall.win)
+		mlx_destroy_window(game->wall.mlx, game->wall.win);
+	if (game->map)
+	{
+		i = 0;
+		while (i < game->map_height)
+		{
+			free(game->map[i]);
+			i++;
+		}
+		free(game->map);
+		game->map = NULL;
+	}
 }

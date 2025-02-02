@@ -6,11 +6,12 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/29 17:18:14 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/01/31 10:47:09 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wall.h"
+
 
 void	use_data_init(t_use_data *use_data)
 {

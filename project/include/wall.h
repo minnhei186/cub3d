@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 16:53:30 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/01 10:48:20 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,17 @@
 # define PLAYERX 1.5
 # define PLAYERY 1.5
 
-# define INITDIRX 0
-# define INITDIRY -1
+
+//draw_wall
+#define NORTH_INDEX 0
+#define SOUTH_INDEX 1
+#define EAST_INDEX 2 
+#define WEST_INDEX 3
+
+//event
+#define ESC_KEY 53
+
+
 
 # define INITPLANEX -0.66
 # define INITPLANEY 0.66
@@ -52,11 +61,16 @@ typedef struct s_wall
 	int				size_line;
 	int				endian;
 
-	int				key_up;
-	int				key_down;
-	int				key_left;
-	int				key_right;
-}					t_wall;
+
+	int key_up;
+    	int key_down;
+    	int key_left;
+    	int key_right;
+	int key_left_rotate;
+	int key_right_rotate;
+
+}t_wall;
+
 
 //load_data
 
@@ -116,7 +130,7 @@ typedef struct s_camera
 
 }					t_camera;
 
-typedef struct s_ddaInfo
+typedef struct s_dda_info
 {
 	int				mapX;
 	int				mapY;
@@ -131,30 +145,38 @@ typedef struct s_ddaInfo
 	int				stepX;
 	int				stepY;
 
-	int				hit;
-	int				side;
-}					t_ddaInfo;
 
-typedef struct s_texInfo
+	int hit;
+	int side;
+}t_dda_info;
+
+
+typedef struct s_tex_info
 {
-	int				texNum;
-	int				texX;
 
-	int (*texture)[TEXWIDTH * TEXHEIGHT];
-	unsigned int	floor_color;
-	unsigned int	ceilling_color;
+	int tex_x;
+	int (*texture)[TEXWIDTH*TEXHEIGHT];
+	unsigned int floor_color;
+	unsigned int ceilling_color;
+	
+}t_tex_info;
 
-}					t_texInfo;
 
 typedef struct s_game
 {
-	t_wall			wall;
-	t_camera		camera;
-	t_ddaInfo		ddaInfo;
-	t_texInfo		texInfo;
 
-	int				**map;
-	int				worldMap[10][10];
+    t_wall      wall;      
+    t_camera    camera;    
+    t_dda_info  	dda_info;
+    t_tex_info   tex_info;
+    
+
+    int         **map;
+    int map_height;
+    int map_width;
+    int         worldMap[10][10]; 
+    
+
 
 }					t_game;
 
@@ -177,6 +199,7 @@ typedef struct s_parse_data
 
 
 //utils
+
 void				*ft_realloc_double_ptr(void **ptr, size_t size);
 void				use_data_init(t_use_data *use_data);
 void				translate_data(t_use_data *use_data,
@@ -206,7 +229,12 @@ int					is_map_line(const char *line, int i);
 // parse_map_utils.c
 int					process_lines(int fd, t_parse_data *data);
 
+
+//map_data
+void	map_data_init(t_map_data *map_data);
+
 //use_data
+
 void				translate_data(t_use_data *use_data,
 					const t_map_data *map_data);
 void				use_data_init(t_use_data *use_data);
@@ -223,11 +251,13 @@ void				worldMap_init(t_game *game);
 void				texInfo_init(t_game *game);
 void				game_init(t_game *game);
 
+
+
 //dda
-void				calculate_start_ddaInfo(double rayX, double rayY,
-						double posX, double posY, t_ddaInfo *ddaInfo);
-void				calculate_dda_algo(int **map, t_ddaInfo *ddaInfo);
-void				calculate_perp_hight(t_ddaInfo *ddaInfo);
+void calculate_start_dda_info(double ray_x,double ray_y,t_game *game);
+void calculate_dda_algo(int **map,t_dda_info *dda_info);
+void calculate_perp_hight(t_dda_info *dda_info);
+
 
 //draw_info
 void				init_draw_info(t_draw *draw);
@@ -235,27 +265,29 @@ void				get_draw_wall_info(t_draw *draw, double perpWallDist);
 void				get_draw_texture_info(t_draw *draw);
 
 //draw
-void				my_pixel_put(int x, int y, int color, t_wall *wall);
-void				clear_window(t_wall *wall);
-void				drawWorld(int pixel, t_draw *draw, t_game *game);
-void				draw(int pixel, t_game *game);
+void my_pixel_put(int x,int y,int color,t_wall *wall);
+void clear_window(t_wall *wall);
+void draw_world(int pixel,t_draw *draw,t_game *game);
+void draw(int pixel,t_game *game);
 
 //event
-int					key_press(int keycode, t_game *game);
-int					key_release(int keycode, t_game *game);
-int					close_window(t_game *game);
-void				readKeys(t_game *game);
-void				update_player(t_game *game);
+int	key_press(int keycode, t_game *game);
+int 	key_release(int keycode, t_game *game);
+int 	close_window(t_game *game);
+void	read_keys(t_game *game);
+void 	update_player(t_game *game);
 
 //move
-void				move_forward(t_game *game);
-void				move_back(t_game *game);
-void				move_right(t_game *game);
-void				move_left(t_game *game);
+void move_forward(t_game *game);
+void move_back(t_game *game);
+void move_right(t_game *game);
+void move_left(t_game *game);
+void rotate_right(t_game *game);
+void rotate_left(t_game *game);
 
 //texture
-void				texture_init(t_game *game);
-void				calculate_texture_information(double rayX, double rayY,
-						t_game *game);
+void texture_init(t_game *game);
+void calculate_texture_information(double ray_x,double ray_y,t_game *game);
+
 
 #endif
