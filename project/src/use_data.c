@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/02 10:14:45 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/03 12:18:17 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ void	translate_data(t_use_data *data, const t_map_data *map)
 	data->floor_color = map->floor_color;
 	data->ceilling_color = map->ceilling_color;
 	allocate_map(data, map);
+	free(mlx);
 }

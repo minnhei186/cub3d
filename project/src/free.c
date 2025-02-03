@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 10:39:44 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/03 11:47:29 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/03 12:30:17 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	free_all_resources(t_game *game)
 		mlx_destroy_image(game->wall.mlx, game->wall.img);
 	if (game->wall.win)
 		mlx_destroy_window(game->wall.mlx, game->wall.win);
+	//if(game->wall.mlx)
+	//	free(game->wall.mlx);
 	if (game->map)
 	{
 		i = 0;
