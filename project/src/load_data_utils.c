@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_data_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:34:44 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/01/29 03:37:14 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/03 11:47:10 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,6 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_map_data(t_map_data *map_data)
-{
-	if (map_data->north_texture)
-		free(map_data->north_texture);
-	if (map_data->south_texture)
-		free(map_data->south_texture);
-	if (map_data->west_texture)
-		free(map_data->west_texture);
-	if (map_data->east_texture)
-		free(map_data->east_texture);
-	if (map_data->map)
-		free_split(map_data->map);
-	free(map_data);
-}
 
 // マップ関連の文字か判定
 int	is_map_char(char c)

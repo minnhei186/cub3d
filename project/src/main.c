@@ -6,16 +6,16 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/02 10:52:13 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:41:10 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
-//__attribute__((destructor))
-// static void destructor() {
-//	system("leaks -q Wall");
-//}
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q Wall");
+}
 
 int	game_loop(t_game *game)
 {
@@ -54,6 +54,7 @@ int	main(void)
 	get_data(&map_data, "small_map.cub");
 	use_data_init(&use_data);
 	translate_data(&use_data, &map_data);
+	free_map_data(&map_data);
 	game_init(&game);
 	copy_data(&game, &use_data);
 	mlx_loop_hook(game.wall.mlx, game_loop, &game);
