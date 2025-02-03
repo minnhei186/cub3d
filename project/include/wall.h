@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/02 10:18:32 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:41:33 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ typedef struct s_parse_data
 
 //free
 void	free_all_resources(t_game *game);
+void free_map_data(t_map_data *map_data);
 
 
 //utils
