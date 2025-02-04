@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/03 11:41:33 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 08:28:25 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,13 @@ typedef struct s_parse_data
 }				t_parse_data;
 
 
+//validation
+int	has_cub_extention(const char *filename);
+//void	validate_texture_and_color(t_map_data *map_data);
+void	validate_map_closed(t_map_data *map_data);
+int	validate_map_line(const char *line);
+
+
 //free
 void	free_all_resources(t_game *game);
 void free_map_data(t_map_data *map_data);
@@ -225,15 +232,14 @@ void				*ft_realloc_double_ptr(void **ptr, size_t size);
 void				fatal_error_exit(int error_status, char *error_msg);
 
 // --- load_data関連の関数プロトタイプ ---
-int					get_data(t_map_data *map_data, const char *filepath);
+void					get_data(t_map_data *map_data, const char *filepath);
 int					parse_map(int fd, t_map_data *map_data);
-int					parse_texture_or_color(t_map_data *m, char **sp, int *tc,
-						int *ci);
+int					parse_texture_or_color(t_map_data *m, char **sp, int *tc);
 int					line_starts_with_texture_or_color(const char *line);
 int					add_map_line(t_map_data *map_data, const char *line);
 
 // --- load_data_utils関連の関数プロトタイプ ---
-unsigned int		get_color(char *line, int *i);
+unsigned int		get_color(char *line);
 void				free_split(char **split);
 void				free_map_data(t_map_data *map_data);
 int					is_map_char(char c);

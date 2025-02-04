@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/03 11:41:10 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:21:57 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,20 @@ int	game_loop(t_game *game)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc,char **argv)
 {
 	t_game		game;
 	t_map_data	map_data;
 	t_use_data	use_data;
 
+	if(argc!=2)
+		fatal_error_exit(1,"need juset file_path");
+	if(!has_cub_extention(argv[1]))
+		fatal_error_exit(1,"not .cub file");
+	
 	map_data_init(&map_data);
-	get_data(&map_data, "small_map.cub");
+	get_data(&map_data, argv[1]);
+	validate_map_closed(&map_data);
 	use_data_init(&use_data);
 	translate_data(&use_data, &map_data);
 	free_map_data(&map_data);

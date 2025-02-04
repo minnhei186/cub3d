@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:55:06 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/29 16:53:24 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/05 08:28:02 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ static int	handle_config_line(t_parse_data *data, char *line, int pos)
 		free(line);
 		return (1);
 	}
-	if (parse_texture_or_color(data->map_data, split, data->texture_count,
-			&pos))
+	if (parse_texture_or_color(data->map_data, split, data->texture_count))
 	{
 		free_split(split);
 		free(line);
@@ -55,6 +54,7 @@ static int	handle_config_line(t_parse_data *data, char *line, int pos)
 	free_split(split);
 	return (0);
 }
+
 
 static int	handle_map_line(t_parse_data *data, char *line)
 {

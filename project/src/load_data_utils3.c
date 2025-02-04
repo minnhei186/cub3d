@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_data_utils3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 03:11:28 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/29 03:12:13 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/04 12:38:20 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int	add_map_line(t_map_data *map_data, const char *line)
 	trimmed = ft_strtrim(line, " \n");
 	if (!trimmed)
 		return (-1);
+	if (!validate_map_line(trimmed))
+	{
+		free(trimmed);
+		fatal_error_exit(1, "Error: Map line contains invalid characters");
+	}
 	if (allocate_and_store_map_line(map_data, trimmed) < 0)
 		return (-1);
 	j = 0;
