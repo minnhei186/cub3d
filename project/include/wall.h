@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 08:28:25 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 09:43:39 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void				fatal_error_exit(int error_status, char *error_msg);
 // --- load_data関連の関数プロトタイプ ---
 void					get_data(t_map_data *map_data, const char *filepath);
 int					parse_map(int fd, t_map_data *map_data);
-int					parse_texture_or_color(t_map_data *m, char **sp, int *tc);
+int					parse_texture_or_color(t_map_data *m, char *id,char *value,int *tc);
 int					line_starts_with_texture_or_color(const char *line);
 int					add_map_line(t_map_data *map_data, const char *line);
 
