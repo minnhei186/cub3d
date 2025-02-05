@@ -6,26 +6,12 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:55:06 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/05 09:48:18 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:18:21 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/wall.h"
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_map_utils.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: example <example@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 15:55:06 by example           #+#    #+#             */
-/*   Updated: 2025/02/05 09:04:38 by example          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "wall.h"
-
 
 int	line_starts_with_texture_or_color(const char *line)
 {
@@ -44,7 +30,6 @@ int	line_starts_with_texture_or_color(const char *line)
 	return (0);
 }
 
-
 static int	ft_isspace(int c)
 {
 	if (c == ' ' || c == '\t' || c == '\n'
@@ -55,13 +40,16 @@ static int	ft_isspace(int c)
 
 static int	parse_config_line(t_parse_data *d, char *line)
 {
-	char	*id;
-	char	*value;
 	int		i;
 	int		j;
+	char	*id;
+	char	*value;
 
 	if (*(d->map_started))
-		return (ft_printf("Error: Additional data after map.\n"), 1);
+	{
+		fatal_error_exit(1, "Additional data after map.");
+		return (1);
+	}
 	i = 0;
 	skip_whitespace(line, &i);
 	j = i;
@@ -71,7 +59,11 @@ static int	parse_config_line(t_parse_data *d, char *line)
 	skip_whitespace(line, &j);
 	value = ft_substr(line, j, ft_strlen(line + j));
 	if (!id || !*id || !value || !*value)
-		return (free(id), free(value), 1);
+	{
+		free(id);
+		free(value);
+		fatal_error_exit(1, "Invalid texture/color line");
+	}
 	parse_texture_or_color(d->map_data, id, value, d->texture_count);
 	free(id);
 	free(value);
@@ -82,7 +74,7 @@ static int	handle_map_line(t_parse_data *d, char *line)
 {
 	if (*(d->texture_count) < 4)
 	{
-		ft_printf("Error: Textures must be set before map.\n");
+		fatal_error_exit(1, "Textures must be set before map or need 4 textures");
 		return (1);
 	}
 	if (add_map_line(d->map_data, line) < 0)
@@ -93,7 +85,7 @@ static int	handle_map_line(t_parse_data *d, char *line)
 
 static int	process_line(t_parse_data *d, char *line)
 {
-	int	pos;
+	int pos;
 
 	pos = 0;
 	remove_comment(line, 0);
@@ -104,7 +96,7 @@ static int	process_line(t_parse_data *d, char *line)
 	{
 		if (parse_config_line(d, line + pos))
 			return (1);
-	}   
+	}
 	else if (is_map_line(line, pos))
 	{
 		if (handle_map_line(d, line))
