@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 09:43:39 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:00:14 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,10 @@ int	validate_map_line(const char *line);
 //free
 void	free_all_resources(t_game *game);
 void free_map_data(t_map_data *map_data);
+
+
+//parser_line
+int	handle_map_line(t_parse_data *d, char *line);
 
 
 //utils

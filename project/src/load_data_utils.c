@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:34:44 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 10:44:28 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:56:03 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,15 @@ void	free_split(char **split)
 
 int	is_map_char(char c)
 {
-	int		result;
-	char	*result_str;
+	int	result;
 
 	if (c == '0' || c == '1' || c == ' ')
 	{
 		result = 1;
-		result_str = "true";
 	}
 	else
 	{
 		result = 0;
-		result_str = "false";
 	}
 	return (result);
 }
