@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 01:19:38 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/05 10:12:56 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:36 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	parse_texture_or_color(t_map_data *m, char *id, char *value, int *tc)
 		set_color(&m->ceilling_color, value);
 	return (0);
 }
-
 
 void	get_data(t_map_data *map_data, const char *filepath)
 {

@@ -6,10 +6,9 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:55:06 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/05 10:18:21 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:42 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "wall.h"
 
@@ -32,8 +31,8 @@ int	line_starts_with_texture_or_color(const char *line)
 
 static int	ft_isspace(int c)
 {
-	if (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\r' || c == '\f' || c == '\v')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f'
+		|| c == '\v')
 		return (1);
 	return (0);
 }
@@ -74,7 +73,8 @@ static int	handle_map_line(t_parse_data *d, char *line)
 {
 	if (*(d->texture_count) < 4)
 	{
-		fatal_error_exit(1, "Textures must be set before map or need 4 textures");
+		fatal_error_exit(1,
+			"Textures must be set before map or need 4 textures");
 		return (1);
 	}
 	if (add_map_line(d->map_data, line) < 0)
@@ -85,7 +85,7 @@ static int	handle_map_line(t_parse_data *d, char *line)
 
 static int	process_line(t_parse_data *d, char *line)
 {
-	int pos;
+	int	pos;
 
 	pos = 0;
 	remove_comment(line, 0);

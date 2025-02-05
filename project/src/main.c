@@ -6,16 +6,16 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 10:15:31 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:09 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q Wall");
-}
+//__attribute__((destructor)) static void destructor()
+//{
+//	system("leaks -q Wall");
+//}
 
 int	game_loop(t_game *game)
 {
@@ -44,17 +44,16 @@ int	game_loop(t_game *game)
 	return (0);
 }
 
-int	main(int argc,char **argv)
+int	main(int argc, char **argv)
 {
 	t_game		game;
 	t_map_data	map_data;
 	t_use_data	use_data;
 
-		if (argc != 2)
+	if (argc != 2)
 		fatal_error_exit(1, "Need one .cub file argument");
 	if (!has_cub_extention(argv[1]))
 		fatal_error_exit(1, "Not a .cub file");
-	
 	map_data_init(&map_data);
 	get_data(&map_data, argv[1]);
 	validate_map_closed(&map_data);

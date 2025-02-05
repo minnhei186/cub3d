@@ -6,7 +6,7 @@
 /*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:52:29 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 08:15:23 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:23 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 // system call error 0
 // custum error 1
 
-static void print_error_prefix(void)
+static void	print_error_prefix(void)
 {
-    write(STDERR_FILENO, "Error\n", 6);
+	write(STDERR_FILENO, "Error\n", 6);
 }
-
-
 
 void	system_error(char *error_msg)
 {

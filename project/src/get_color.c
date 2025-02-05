@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:42:22 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 10:06:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:29 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	color_skip_ws(char *s, int i)
 {
-	while (s[i] && (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == '\r'))
+	while (s[i] && (s[i] == ' ' || s[i] == '\t' || s[i] == '\n'
+			|| s[i] == '\r'))
 		i++;
 	return (i);
 }
@@ -35,8 +36,8 @@ static int	parse_channel(char *line, int *i, char *msg)
 			else
 				fatal_error_exit(1, "Number too long.");
 		}
-		else if (!(line[*i] == ' ' || line[*i] == '\t' ||
-					line[*i] == '\n' || line[*i] == '\r'))
+		else if (!(line[*i] == ' ' || line[*i] == '\t' || line[*i] == '\n'
+				|| line[*i] == '\r'))
 			fatal_error_exit(1, msg);
 		(*i)++;
 	}
@@ -73,4 +74,3 @@ unsigned int	get_color(char *line)
 		fatal_error_exit(1, "Color must be in [0..255]");
 	return ((r << 16) | (g << 8) | b);
 }
-
