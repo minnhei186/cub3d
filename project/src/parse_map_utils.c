@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:55:06 by nkannan           #+#    #+#             */
-/*   Updated: 2025/01/29 16:53:24 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/05 10:18:21 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/wall.h"
+
+#include "wall.h"
 
 int	line_starts_with_texture_or_color(const char *line)
 {
@@ -29,61 +30,77 @@ int	line_starts_with_texture_or_color(const char *line)
 	return (0);
 }
 
-static int	handle_config_line(t_parse_data *data, char *line, int pos)
+static int	ft_isspace(int c)
 {
-	char	**split;
-
-	if (*data->map_started)
-	{
-		ft_printf("Error: Found additional data after map lines.\n");
-		free(line);
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\r' || c == '\f' || c == '\v')
 		return (1);
-	}
-	split = ft_split(line + pos, ' ');
-	if (!split)
-	{
-		free(line);
-		return (1);
-	}
-	if (parse_texture_or_color(data->map_data, split, data->texture_count,
-			&pos))
-	{
-		free_split(split);
-		free(line);
-		return (1);
-	}
-	free_split(split);
 	return (0);
 }
 
-static int	handle_map_line(t_parse_data *data, char *line)
+static int	parse_config_line(t_parse_data *d, char *line)
 {
-	if (*data->texture_count < 4)
+	int		i;
+	int		j;
+	char	*id;
+	char	*value;
+
+	if (*(d->map_started))
 	{
-		ft_printf("Error: Texture paths must be set before map data.\n");
-		free(line);
+		fatal_error_exit(1, "Additional data after map.");
 		return (1);
 	}
-	if (add_map_line(data->map_data, line) == -1)
+	i = 0;
+	skip_whitespace(line, &i);
+	j = i;
+	while (line[j] && !ft_isspace(line[j]))
+		j++;
+	id = ft_substr(line, i, j - i);
+	skip_whitespace(line, &j);
+	value = ft_substr(line, j, ft_strlen(line + j));
+	if (!id || !*id || !value || !*value)
 	{
-		free(line);
-		return (1);
+		free(id);
+		free(value);
+		fatal_error_exit(1, "Invalid texture/color line");
 	}
+	parse_texture_or_color(d->map_data, id, value, d->texture_count);
+	free(id);
+	free(value);
 	return (0);
 }
 
-static int	process_line(t_parse_data *data, char *line, int pos)
+static int	handle_map_line(t_parse_data *d, char *line)
 {
+	if (*(d->texture_count) < 4)
+	{
+		fatal_error_exit(1, "Textures must be set before map or need 4 textures");
+		return (1);
+	}
+	if (add_map_line(d->map_data, line) < 0)
+		return (1);
+	*(d->map_started) = 1;
+	return (0);
+}
+
+static int	process_line(t_parse_data *d, char *line)
+{
+	int pos;
+
+	pos = 0;
+	remove_comment(line, 0);
+	skip_whitespace(line, &pos);
+	if (!line[pos])
+		return (0);
 	if (line_starts_with_texture_or_color(&line[pos]))
 	{
-		if (handle_config_line(data, line, pos))
+		if (parse_config_line(d, line + pos))
 			return (1);
 	}
 	else if (is_map_line(line, pos))
 	{
-		if (handle_map_line(data, line))
+		if (handle_map_line(d, line))
 			return (1);
-		*data->map_started = 1;
 	}
 	return (0);
 }
@@ -91,23 +108,15 @@ static int	process_line(t_parse_data *data, char *line, int pos)
 int	process_lines(int fd, t_parse_data *data)
 {
 	char	*line;
-	int		pos;
+	int		ret;
 
 	line = get_next_line(fd);
 	while (line)
 	{
-		pos = 0;
-		remove_comment(line, 0);
-		skip_whitespace(line, &pos);
-		if (!line[pos])
-		{
-			free(line);
-			line = get_next_line(fd);
-			continue ;
-		}
-		if (process_line(data, line, pos))
-			return (free(line), 1);
+		ret = process_line(data, line);
 		free(line);
+		if (ret)
+			return (1);
 		line = get_next_line(fd);
 	}
 	return (0);

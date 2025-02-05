@@ -6,39 +6,39 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:34:44 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/03 11:47:10 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:45:52 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wall.h"
 
-unsigned int	get_color(char *line, int *i)
-{
-	unsigned int (r), g, b, color_count = 0;
-	r = ft_atoi(line + *i);
-	color_count++;
-	while (ft_isdigit(line[*i]))
-		(*i)++;
-	if (line[*i] == ',')
-		(*i)++;
-	else
-		return (0);
-	g = ft_atoi(line + *i);
-	color_count++;
-	while (ft_isdigit(line[*i]))
-		(*i)++;
-	if (line[*i] == ',')
-		(*i)++;
-	else
-		return (0);
-	b = ft_atoi(line + *i);
-	color_count++;
-	while (ft_isdigit(line[*i]))
-		(*i)++;
-	if (color_count != 3)
-		return (0);
-	return (r << 16 | g << 8 | b);
-}
+//unsigned int	get_color(char *line, int *i)
+//{
+//	unsigned int(r), g, b, color_count = 0;
+//	r = ft_atoi(line + *i);
+//	color_count++;
+//	while (ft_isdigit(line[*i]))
+//		(*i)++;
+//	if (line[*i] == ',')
+//		(*i)++;
+//	else
+//		return (0);
+//	g = ft_atoi(line + *i);
+//	color_count++;
+//	while (ft_isdigit(line[*i]))
+//		(*i)++;
+//	if (line[*i] == ',')
+//		(*i)++;
+//	else
+//		return (0);
+//	b = ft_atoi(line + *i);
+//	color_count++;
+//	while (ft_isdigit(line[*i]))
+//		(*i)++;
+//	if (color_count != 3)
+//		return (0);
+//	return (r << 16 | g << 8 | b);
+//}
 
 void	free_split(char **split)
 {
@@ -52,7 +52,6 @@ void	free_split(char **split)
 	}
 	free(split);
 }
-
 
 // マップ関連の文字か判定
 int	is_map_char(char c)

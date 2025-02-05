@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/03 12:47:22 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:59:20 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	translate_data(t_use_data *data, const t_map_data *map)
 	mlx = mlx_init();
 	if (!mlx)
 		fatal_error_exit(1, "error: mlx_init failed");
-	use_data_init(data);
 	set_player(data, map);
 	load_texture(mlx, data->texture[0], map->north_texture);
 	load_texture(mlx, data->texture[1], map->south_texture);
