@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/06 15:50:06 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:13:39 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 		fatal_error_exit(1, "Not a .cub file");
 	map_data_init(&map_data);
 	get_data(&map_data, argv[1]);
-	validate_map_closed(&map_data);
+	validate_map_data_integrity(&map_data);
 	use_data_init(&use_data);
 	translate_data(&mlx,&use_data, &map_data);
 	free_map_data(&map_data);

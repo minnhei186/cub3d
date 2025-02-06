@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/06 15:50:53 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:14:36 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,9 +213,9 @@ typedef struct s_parse_data
 
 //validation
 int	has_cub_extention(const char *filename);
-//void	validate_texture_and_color(t_map_data *map_data);
 void	validate_map_closed(t_map_data *map_data);
 int	validate_map_line(const char *line);
+void	validate_map_data_integrity(t_map_data *map_data);
 
 
 //free
