@@ -6,16 +6,16 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:52:17 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 10:43:09 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:50:06 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
-//__attribute__((destructor)) static void destructor()
-//{
-//	system("leaks -q Wall");
-//}
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q Wall");
+}
 
 int	game_loop(t_game *game)
 {
@@ -49,6 +49,7 @@ int	main(int argc, char **argv)
 	t_game		game;
 	t_map_data	map_data;
 	t_use_data	use_data;
+	void *mlx;
 
 	if (argc != 2)
 		fatal_error_exit(1, "Need one .cub file argument");
@@ -58,7 +59,7 @@ int	main(int argc, char **argv)
 	get_data(&map_data, argv[1]);
 	validate_map_closed(&map_data);
 	use_data_init(&use_data);
-	translate_data(&use_data, &map_data);
+	translate_data(&mlx,&use_data, &map_data);
 	free_map_data(&map_data);
 	game_init(&game);
 	copy_data(&game, &use_data);
