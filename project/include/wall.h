@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/06 16:14:36 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:42:58 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@
 
 
 //draw_wall
-#define NORTH_INDEX 0
-#define SOUTH_INDEX 1
-#define EAST_INDEX 2 
 #define WEST_INDEX 3
+#define EAST_INDEX 2
+#define SOUTH_INDEX 1 
+#define NORTH_INDEX 0
 
 //event
 #define ESC_KEY 53

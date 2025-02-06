@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 09:56:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:43:44 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ unsigned int	get_wall_color(t_game *game, int tex_y)
 	if (game->dda_info.side == 0)
 	{
 		if (game->dda_info.stepX > 0)
-			tex_color = game->tex_info.texture[EAST_INDEX][TEXWIDTH * tex_y
+			tex_color = game->tex_info.texture[SOUTH_INDEX][TEXWIDTH * tex_y
 				+ game->tex_info.tex_x];
 		else
-			tex_color = game->tex_info.texture[WEST_INDEX][TEXWIDTH * tex_y
+			tex_color = game->tex_info.texture[NORTH_INDEX][TEXWIDTH * tex_y
 				+ game->tex_info.tex_x];
 	}
 	else
 	{
 		if (game->dda_info.stepY > 0)
-			tex_color = game->tex_info.texture[SOUTH_INDEX][TEXWIDTH * tex_y
+			tex_color = game->tex_info.texture[WEST_INDEX][TEXWIDTH * tex_y
 				+ game->tex_info.tex_x];
 		else
-			tex_color = game->tex_info.texture[NORTH_INDEX][TEXWIDTH * tex_y
+			tex_color = game->tex_info.texture[EAST_INDEX][TEXWIDTH * tex_y
 				+ game->tex_info.tex_x];
 	}
 	return (tex_color);
