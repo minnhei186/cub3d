@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/05 11:00:14 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:50:53 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,8 +268,7 @@ void	east_direction(t_use_data *use_data);
 
 //use_data
 void	use_data_init(t_use_data *use_data);
-void				translate_data(t_use_data *use_data,
-					const t_map_data *map_data);
+void				translate_data(void **mlx,t_use_data *use_data,const t_map_data *map_data);
 
 //load_texture_for_use_data
 void load_texture(void *mlx, int *texture, char *path);

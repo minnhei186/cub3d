@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/04 08:59:20 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:51:45 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,17 @@ static void	set_player(t_use_data *use_data, const t_map_data *map_data)
 	conversion_dir(use_data, map_data);
 }
 
-void	translate_data(t_use_data *data, const t_map_data *map)
+void	translate_data(void **mlx,t_use_data *data, const t_map_data *map)
 {
-	void	*mlx;
 
-	mlx = mlx_init();
-	if (!mlx)
-		fatal_error_exit(1, "error: mlx_init failed");
+	*mlx = mlx_init();
+	if (!*mlx)
+		fatal_error_exit(1, "error: *mlx_init failed");
 	set_player(data, map);
-	load_texture(mlx, data->texture[0], map->north_texture);
-	load_texture(mlx, data->texture[1], map->south_texture);
-	load_texture(mlx, data->texture[2], map->west_texture);
-	load_texture(mlx, data->texture[3], map->east_texture);
+	load_texture(*mlx, data->texture[0], map->north_texture);
+	load_texture(*mlx, data->texture[1], map->south_texture);
+	load_texture(*mlx, data->texture[2], map->west_texture);
+	load_texture(*mlx, data->texture[3], map->east_texture);
 	data->map_width = map->map_width;
 	data->map_height = map->map_height;
 	data->floor_color = map->floor_color;
