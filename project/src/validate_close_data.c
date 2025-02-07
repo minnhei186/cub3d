@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_close_data.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:05:29 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/04 12:20:43 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:19:18 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
-static char	get_cell(const char *row, int j)
+ char	get_cell(const char *row, int j)
 {
 	int	len;
 

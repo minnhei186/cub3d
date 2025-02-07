@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:46:27 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/06 15:51:45 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:09:41 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,8 @@ static void	set_player(t_use_data *use_data, const t_map_data *map_data)
 	conversion_dir(use_data, map_data);
 }
 
-void	translate_data(void **mlx,t_use_data *data, const t_map_data *map)
+void	translate_data(void **mlx, t_use_data *data, const t_map_data *map)
 {
-
 	*mlx = mlx_init();
 	if (!*mlx)
 		fatal_error_exit(1, "error: *mlx_init failed");
