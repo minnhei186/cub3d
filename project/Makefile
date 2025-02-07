@@ -3,51 +3,74 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhosokaw <dhosokaw@student.42tokyo.>       +#+  +:+       +#+         #
+#    By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/03 13:49:56 by dhosokaw          #+#    #+#              #
-#    Updated: 2024/12/24 15:11:36 by hosokawa         ###   ########.fr        #
+#    Updated: 2025/02/07 21:39:28 by nkannan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC=cc 
+CC=cc
 CFLAGS=-Wall -Wextra -Werror
-INCDIR=-Iinclude
-FRAMEWORKS = -framework OpenGL -framework AppKit
+
+DEBUG_FLAGS=-g -fsanitize=address
+
+# OSの判別とそれに応じた設定
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	MLXDIR=minilibx-linux
+	LIBS = -lmlx -lXext -lX11 -lm
+else
+	MLXDIR=minilibx
+	LIBS = -lmlx -framework OpenGL -framework AppKit
+endif
 
 LIBFTDIR=libft
-LIBMINIDIR=minilibx
+INCDIR=-Iinclude -I$(LIBFTDIR)/include -I$(MLXDIR)
 
 SRCS=$(wildcard src/*.c)
 OBJS=$(SRCS:.c=.o)
 
-LIB_ft=libft.a
-LIB_mini=libmlx.a
+LIB_ft=libft/libft.a
+LIB_mlx=$(MLXDIR)/libmlx.a
 NAME=Wall
 
 
-all:$(LIB_ft) $(LIB_mini) $(NAME)
+all: $(NAME)
 
-$(NAME):$(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFTDIR)/$(LIB_ft)  $(LIBMINIDIR)/$(LIB_mini) $(FRAMEWORKS)
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: $(NAME)
+
+
+$(NAME): $(OBJS) $(LIB_ft) $(LIB_mlx)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB_ft) $(LIB_mlx) $(LIBS) -L$(MLXDIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCDIR) -g -c $< -o $@
+	$(CC) $(CFLAGS) $(INCDIR) -c $< -o $@
 
 $(LIB_ft):
 	$(MAKE) -C $(LIBFTDIR)
-$(LIB_mini):
-	$(MAKE) -C $(LIBMINIDIR)
 
+$(LIB_mlx):
+ifeq ($(UNAME_S),Linux)
+	$(MAKE) -C $(MLXDIR)
+else # macOSの場合、minilibxのmakeは不要な場合が多い
+	@echo "Skipping minilibx compilation on macOS (assuming precompiled library)"
+#	$(MAKE) -C $(MLXDIR)  # 必要ならコメントアウトを外す
+endif
 
 clean:
 	$(MAKE) clean -C $(LIBFTDIR)
-	$(MAKE) clean -C $(LIBMINIDIR)
-	rm -rf $(OBJS)
-fclean:clean
+ifeq ($(UNAME_S),Linux)
+	$(MAKE) clean -C $(MLXDIR)  # Linuxの場合のみminilibxもclean
+endif
+	rm -f $(OBJS)
+
+fclean: clean
 	$(MAKE) fclean -C $(LIBFTDIR)
 	rm -f $(NAME)
 
-re:fclean all
+re: fclean all
 
-.PHONY:all clean fclean re
+
+.PHONY: all debug clean fclean re
