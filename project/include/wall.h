@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/07 12:57:55 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:15:13 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define HEIGHT 720
 
 //texture
-# define TEXWIDTH 64
-# define TEXHEIGHT 64
+# define TEXWIDTH 50
+# define TEXHEIGHT 50
 
 //rayInfo
 # define PLAYERX 1.5
