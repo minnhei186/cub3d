@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/06 17:42:58 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:43:35 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <math.h>
 # include <stdio.h>
+# include <X11/keysym.h>
 
 //mlx
 # define WIDTH 1280
@@ -37,7 +38,7 @@
 //draw_wall
 #define WEST_INDEX 3
 #define EAST_INDEX 2
-#define SOUTH_INDEX 1 
+#define SOUTH_INDEX 1
 #define NORTH_INDEX 0
 
 //event
@@ -171,24 +172,24 @@ typedef struct s_tex_info
 	int (*texture)[TEXWIDTH*TEXHEIGHT];
 	unsigned int floor_color;
 	unsigned int ceilling_color;
-	
+
 }t_tex_info;
 
 
 typedef struct s_game
 {
 
-    t_wall      wall;      
-    t_camera    camera;    
+    t_wall      wall;
+    t_camera    camera;
     t_dda_info  	dda_info;
     t_tex_info   tex_info;
-    
+
 
     int         **map;
     int map_height;
     int map_width;
-    int         worldMap[10][10]; 
-    
+    int         worldMap[10][10];
+
 
 
 }					t_game;
