@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhosokaw <dhosokaw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:23:24 by dhosokaw          #+#    #+#             */
-/*   Updated: 2024/06/03 13:01:21 by dhosokaw         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:26:27 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <sys/select.h>
 # include <unistd.h>
+# include <stdint.h>
 
 char	*get_next_line(int fd);
 
