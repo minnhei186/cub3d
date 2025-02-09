@@ -6,7 +6,7 @@
 #    By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/03 13:49:56 by dhosokaw          #+#    #+#              #
-#    Updated: 2025/02/07 21:39:28 by nkannan          ###   ########.fr        #
+#    Updated: 2025/02/09 14:39:54 by nkannan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,11 @@ endif
 LIBFTDIR=libft
 INCDIR=-Iinclude -I$(LIBFTDIR)/include -I$(MLXDIR)
 
+# objディレクトリ
+OBJDIR = obj
+# オブジェクトファイルのパスを変更
 SRCS=$(wildcard src/*.c)
-OBJS=$(SRCS:.c=.o)
+OBJS=$(SRCS:src/%.c=$(OBJDIR)/%.o)
 
 LIB_ft=libft/libft.a
 LIB_mlx=$(MLXDIR)/libmlx.a
@@ -45,8 +48,11 @@ debug: $(NAME)
 $(NAME): $(OBJS) $(LIB_ft) $(LIB_mlx)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB_ft) $(LIB_mlx) $(LIBS) -L$(MLXDIR)
 
-%.o: %.c
+# objディレクトリにオブジェクトファイルを生成
+$(OBJDIR)/%.o: src/%.c
+	@mkdir -p $(dir $@)  # 親ディレクトリを作成
 	$(CC) $(CFLAGS) $(INCDIR) -c $< -o $@
+
 
 $(LIB_ft):
 	$(MAKE) -C $(LIBFTDIR)
@@ -64,7 +70,7 @@ clean:
 ifeq ($(UNAME_S),Linux)
 	$(MAKE) clean -C $(MLXDIR)  # Linuxの場合のみminilibxもclean
 endif
-	rm -f $(OBJS)
+	rm -rf $(OBJDIR)
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFTDIR)
