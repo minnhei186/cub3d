@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/09 19:06:29 by dhosokaw         ###   ########.fr       */
+/*   Updated: 2025/02/10 00:09:55 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <math.h>
 # include <stdio.h>
+# include <X11/keysym.h>
 
 // mlx
 # define WIDTH 1280

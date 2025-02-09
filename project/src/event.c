@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 12:28:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/01 10:47:47 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:59:08 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,36 @@
 
 int	key_press(int keycode, t_game *game)
 {
-	if (keycode == ESC_KEY)
-	{
+	if (keycode == XK_Escape)
 		close_window(game);
-	}
-	if (keycode == 13)
+	if (keycode == XK_w)
 		game->wall.key_up = 1;
-	if (keycode == 1)
+	if (keycode == XK_s)
 		game->wall.key_down = 1;
-	if (keycode == 2)
+	if (keycode == XK_d)
 		game->wall.key_right = 1;
-	if (keycode == 0)
+	if (keycode == XK_a)
 		game->wall.key_left = 1;
-	if (keycode == 123)
+	if (keycode == XK_Left)
 		game->wall.key_left_rotate = 1;
-	if (keycode == 124)
+	if (keycode == XK_Right)
 		game->wall.key_right_rotate = 1;
 	return (0);
 }
 
 int	key_release(int keycode, t_game *game)
 {
-	if (keycode == 13)
+	if (keycode == XK_w)
 		game->wall.key_up = 0;
-	if (keycode == 1)
+	if (keycode == XK_s)
 		game->wall.key_down = 0;
-	if (keycode == 2)
+	if (keycode == XK_d)
 		game->wall.key_right = 0;
-	if (keycode == 0)
+	if (keycode == XK_a)
 		game->wall.key_left = 0;
-	if (keycode == 123)
+	if (keycode == XK_Left)
 		game->wall.key_left_rotate = 0;
-	if (keycode == 124)
+	if (keycode == XK_Right)
 		game->wall.key_right_rotate = 0;
 	return (0);
 }
