@@ -6,7 +6,7 @@
 #    By: dhosokaw <dhosokaw@student.42tokyo.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/03 13:49:56 by dhosokaw          #+#    #+#              #
-#    Updated: 2024/12/24 15:11:36 by hosokawa         ###   ########.fr        #
+#    Updated: 2025/02/07 12:20:42 by hosokawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJS=$(SRCS:.c=.o)
 
 LIB_ft=libft.a
 LIB_mini=libmlx.a
-NAME=Wall
+NAME=cub3D
 
 
 all:$(LIB_ft) $(LIB_mini) $(NAME)
