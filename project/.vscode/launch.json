@@ -5,9 +5,9 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "lldb",
       "request": "launch",
-      "args": ["map/Empth_map.cub"],
+      "args": ["map.cub"],
       "cwd": "/Users/hosokawa/42tokyo/level04/cub3d/project",
-      "program": "/Users/hosokawa/42tokyo/level04/cub3d/project/Wall"
+      "program": "/Users/hosokawa/42tokyo/level04/cub3d/project/cub3D"
     }
   ]
 }

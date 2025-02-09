@@ -36,7 +36,7 @@ OBJS=$(SRCS:src/%.c=$(OBJDIR)/%.o)
 
 LIB_ft=libft/libft.a
 LIB_mlx=$(MLXDIR)/libmlx.a
-NAME=Wall
+NAME=cub3D
 
 
 all: $(NAME)
