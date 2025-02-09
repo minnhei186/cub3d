@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/09 16:44:20 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:09:21 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,8 +249,10 @@ int					check_map_line_end(t_parse_data *d, char *line, int pos);
 void				encountered_empty_error(char *line);
 int					handle_empty_line(t_parse_data *data, char *trimmed,
 						char *line, int *encountered_empty);
+int	process_line_wrapper(t_parse_data *data, int *encountered_empty, char *line);
 
 // parser_line.c
+int	process_line(t_parse_data *d, char *line);
 int					process_lines(int fd, t_parse_data *data);
 
 // map_data

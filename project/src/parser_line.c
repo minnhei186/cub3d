@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:22 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/09 16:43:08 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:08:40 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	parse_config_line(t_parse_data *d, char *line)
 	return (0);
 }
 
-static int	process_line(t_parse_data *d, char *line)
+int	process_line(t_parse_data *d, char *line)
 {
 	char	*trimmed;
 	int		pos;
@@ -91,7 +91,44 @@ static int	process_line(t_parse_data *d, char *line)
 	return (0);
 }
 
-//int	process_lines(int fd, t_parse_data *data)
+// static int	process_line_wrapper(t_parse_data *data, int *encountered_empty,
+//		char *line)
+//{
+//	char	*trimmed;
+//	int		ret;
+//
+//	trimmed = ft_strtrim(line, " \t\n");
+//	if (!trimmed)
+//		fatal_error_exit(1, "Memory allocation error");
+//	if (handle_empty_line(data, trimmed, line, encountered_empty))
+//		return (0);
+//	free(trimmed);
+//	if (*encountered_empty)
+//		encountered_empty_error(line);
+//	ret = process_line(data, line);
+//	free(line);
+//	return (ret);
+//}
+
+int	process_lines(int fd, t_parse_data *data)
+{
+	char	*line;
+	int		ret;
+	int		encountered_empty;
+
+	encountered_empty = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		ret = process_line_wrapper(data, &encountered_empty, line);
+		if (ret)
+			return (1);
+		line = get_next_line(fd);
+	}
+	return (0);
+}
+
+// int	process_lines(int fd, t_parse_data *data)
 //{
 //	char	*line;
 //	char	*trimmed;
@@ -105,8 +142,11 @@ static int	process_line(t_parse_data *d, char *line)
 //		trimmed = ft_strtrim(line, " \t\n");
 //		if (!trimmed)
 //			fatal_error_exit(1, "Memory allocation error");
-//		if (handle_empty_line(data, trimmed, &line, &encountered_empty))
+//		if (handle_empty_line(data, trimmed, line, &encountered_empty))
+//		{
+//			line = get_next_line(fd);
 //			continue ;
+//		}
 //		free(trimmed);
 //		if (encountered_empty)
 //			encountered_empty_error(line);
@@ -119,61 +159,3 @@ static int	process_line(t_parse_data *d, char *line)
 //	return (0);
 //}
 //
-
-
- int	process_lines(int fd, t_parse_data *data)
-{
-	char	*line;
-	char	*trimmed;
-	int		ret;
-	int		encountered_empty;
-
-	encountered_empty = 0;
-	line = get_next_line(fd);
-	while (line)
-	{
-		trimmed = ft_strtrim(line, " \t\n");
-		if (!trimmed)
-			fatal_error_exit(1, "Memory allocation error");
-		if (handle_empty_line(data, trimmed, line, &encountered_empty))
-		{
-			line = get_next_line(fd);
-			continue ;
-		}
-		free(trimmed);
-		if (encountered_empty)
-			encountered_empty_error(line);
-		ret = process_line(data, line);
-		free(line);
-		if (ret)
-			return (1);
-		line = get_next_line(fd);
-	}
-	return (0);
-}
-
-// int	process_lines(int fd, t_parse_data *data)
-//{
-//	char	*line;
-//	int		ret;
-//	int		encountered_empty;
-//	char	*trimmed;
-//
-//	encountered_empty = 0;
-//	while ((line = get_next_line(fd)) != NULL)
-//	{
-//		trimmed = ft_strtrim(line, " \t\n");
-//		if (!trimmed)
-//			fatal_error_exit(1, "Memory allocation error");
-//		if (handle_empty_line(data, trimmed, line, &encountered_empty))
-//			continue ;
-//		free(trimmed);
-//		if (encountered_empty)
-//			encountered_empty_error(line);
-//		ret = process_line(data, line);
-//		free(line);
-//		if (ret)
-//			return (1);
-//	}
-//	return (0);
-//}
