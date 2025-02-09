@@ -3,20 +3,31 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhosokaw <dhosokaw@student.42tokyo.>       +#+  +:+       +#+         #
+#    By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/03 13:49:56 by dhosokaw          #+#    #+#              #
-#    Updated: 2025/02/07 12:20:42 by hosokawa         ###   ########.fr        #
+#    Updated: 2025/02/09 18:44:35 by nkannan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC=cc 
+CC=cc
 CFLAGS=-Wall -Wextra -Werror
 INCDIR=-Iinclude
-FRAMEWORKS = -framework OpenGL -framework AppKit
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	FRAMEWORKS = -lXext -lX11 -lm
+else
+	FRAMEWORKS = -framework OpenGL -framework AppKit
+endif
 
 LIBFTDIR=libft
-LIBMINIDIR=minilibx
+
+ifeq ($(UNAME_S),Linux)
+	LIBMINIDIR=minilibx-linux
+else
+	LIBMINIDIR=minilibx
+endif
 
 SRCS=$(wildcard src/*.c)
 OBJS=$(SRCS:.c=.o)
