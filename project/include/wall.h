@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/09 14:36:56 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:59:10 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define HEIGHT 720
 
 //texture
-# define TEXWIDTH 64
-# define TEXHEIGHT 64
+# define TEXWIDTH 50
+# define TEXHEIGHT 50
 
 //rayInfo
 # define PLAYERX 1.5
@@ -254,6 +254,17 @@ int					is_player_char(char c);
 void				skip_whitespace(const char *line, int *i);
 void				remove_comment(char *line, int start_index);
 int					is_map_line(const char *line, int i);
+
+
+//add_map_utils.c
+int	handle_player(t_map_data *map_data, char *trimmed, int j);
+int	allocate_and_store_map_line(t_map_data *map_data, char *trimmed);
+void	validate_trimmed(t_map_data *map_data, char *trimmed);
+int	store_line(t_map_data *map_data, char *trimmed);
+int	find_player(t_map_data *map_data, char *trimmed);
+
+//add_map.c
+int	add_map_line(t_map_data *map_data, const char *line);
 
 // parse_map_utils.c
 int					process_lines(int fd, t_parse_data *data);
