@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": ["map.cub"],
-      "cwd": "/Users/hosokawa/42tokyo/level04/cub3d/project",
-      "program": "/Users/hosokawa/42tokyo/level04/cub3d/project/cub3D"
+      "cwd": "/home/dhosokaw/test_cub/project",
+      "program": "/home/dhosokaw/test_cub/project/cub3D"
     }
   ]
 }
