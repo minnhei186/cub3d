@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:22 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/07 13:12:50 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:34:06 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,21 +105,61 @@ static int	process_line(t_parse_data *d, char *line)
 int	process_lines(int fd, t_parse_data *data)
 {
 	char	*line;
+	int		ret;
+	int		encounteredEmpty;
+	char	*trimmed;
 
-	int ret, empty_line_detected;
-	empty_line_detected = 0;
-	line = get_next_line(fd);
-	while (line)
+	encounteredEmpty = 0;
+	while ((line = get_next_line(fd)) != NULL)
 	{
-		if (!empty_line_detected && *(data->map_started) && line[0] == '\n')
-			empty_line_detected = 1;
+		/* 行頭／末尾の空白・タブ・改行を除去して内容をチェック */
+		trimmed = ft_strtrim(line, " \t\n");
+		if (!trimmed)
+			fatal_error_exit(1, "Memory allocation error");
+		if (trimmed[0] == '\0')
+		{
+			/* 空行の場合：
+				- マップ開始後なら encounteredEmpty フラグをセット
+				- その後の非空行があればエラーとする */
+			if (*(data->map_started))
+				encounteredEmpty = 1;
+			free(trimmed);
+			free(line);
+			continue ;
+		}
+		free(trimmed);
+		/* すでに空行が検出されていた場合、今回の非空行はマップ内部の空行混入とみなす */
+		if (encounteredEmpty)
+		{
+			free(line);
+			fatal_error_exit(1, "Empty line within map data");
+		}
 		ret = process_line(data, line);
 		free(line);
 		if (ret)
 			return (1);
-		line = get_next_line(fd);
 	}
-	if (empty_line_detected)
-		fatal_error_exit(1, "Empty line within map data");
 	return (0);
 }
+
+// int	process_lines(int fd, t_parse_data *data)
+//{
+//	char	*line;
+//
+//	int ret, empty_line_detected;
+//	empty_line_detected = 0;
+//	line = get_next_line(fd);
+//	while (line)
+//	{
+//		if (!empty_line_detected && *(data->map_started) && line[0] == '\n')
+//			empty_line_detected = 1;
+//		ret = process_line(data, line);
+//		free(line);
+//		if (ret)
+//			return (1);
+//		line = get_next_line(fd);
+//	}
+//	if (empty_line_detected)
+//		fatal_error_exit(1, "Empty line within map data");
+//	return (0);
+//}
