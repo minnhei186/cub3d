@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:54:22 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/09 14:34:06 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:43:08 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,25 +68,14 @@ static int	process_line(t_parse_data *d, char *line)
 	int		pos;
 
 	trimmed = ft_strtrim(line, " \t\n");
-	if (!trimmed)
-		fatal_error_exit(1, "Memory allocation error");
-	if (trimmed[0] == '\0')
-	{
-		free(trimmed);
-		if (*(d->map_started))
-			fatal_error_exit(1, "Empty line within map data");
+	if (check_trimmed(trimmed, d->map_started))
 		return (0);
-	}
 	free(trimmed);
 	pos = 0;
 	remove_comment(line, 0);
 	skip_whitespace(line, &pos);
-	if (!line[pos])
-	{
-		if (*(d->map_started))
-			fatal_error_exit(1, "Empty line within map data");
+	if (check_map_line_end(d, line, pos))
 		return (0);
-	}
 	if (line_starts_with_texture_or_color(&line[pos]))
 	{
 		if (*(d->map_started))
@@ -102,42 +91,63 @@ static int	process_line(t_parse_data *d, char *line)
 	return (0);
 }
 
-int	process_lines(int fd, t_parse_data *data)
+//int	process_lines(int fd, t_parse_data *data)
+//{
+//	char	*line;
+//	char	*trimmed;
+//	int		ret;
+//	int		encountered_empty;
+//
+//	encountered_empty = 0;
+//	line = get_next_line(fd);
+//	while (line)
+//	{
+//		trimmed = ft_strtrim(line, " \t\n");
+//		if (!trimmed)
+//			fatal_error_exit(1, "Memory allocation error");
+//		if (handle_empty_line(data, trimmed, &line, &encountered_empty))
+//			continue ;
+//		free(trimmed);
+//		if (encountered_empty)
+//			encountered_empty_error(line);
+//		ret = process_line(data, line);
+//		free(line);
+//		if (ret)
+//			return (1);
+//		line = get_next_line(fd);
+//	}
+//	return (0);
+//}
+//
+
+
+ int	process_lines(int fd, t_parse_data *data)
 {
 	char	*line;
-	int		ret;
-	int		encounteredEmpty;
 	char	*trimmed;
+	int		ret;
+	int		encountered_empty;
 
-	encounteredEmpty = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	encountered_empty = 0;
+	line = get_next_line(fd);
+	while (line)
 	{
-		/* 行頭／末尾の空白・タブ・改行を除去して内容をチェック */
 		trimmed = ft_strtrim(line, " \t\n");
 		if (!trimmed)
 			fatal_error_exit(1, "Memory allocation error");
-		if (trimmed[0] == '\0')
+		if (handle_empty_line(data, trimmed, line, &encountered_empty))
 		{
-			/* 空行の場合：
-				- マップ開始後なら encounteredEmpty フラグをセット
-				- その後の非空行があればエラーとする */
-			if (*(data->map_started))
-				encounteredEmpty = 1;
-			free(trimmed);
-			free(line);
+			line = get_next_line(fd);
 			continue ;
 		}
 		free(trimmed);
-		/* すでに空行が検出されていた場合、今回の非空行はマップ内部の空行混入とみなす */
-		if (encounteredEmpty)
-		{
-			free(line);
-			fatal_error_exit(1, "Empty line within map data");
-		}
+		if (encountered_empty)
+			encountered_empty_error(line);
 		ret = process_line(data, line);
 		free(line);
 		if (ret)
 			return (1);
+		line = get_next_line(fd);
 	}
 	return (0);
 }
@@ -145,21 +155,25 @@ int	process_lines(int fd, t_parse_data *data)
 // int	process_lines(int fd, t_parse_data *data)
 //{
 //	char	*line;
+//	int		ret;
+//	int		encountered_empty;
+//	char	*trimmed;
 //
-//	int ret, empty_line_detected;
-//	empty_line_detected = 0;
-//	line = get_next_line(fd);
-//	while (line)
+//	encountered_empty = 0;
+//	while ((line = get_next_line(fd)) != NULL)
 //	{
-//		if (!empty_line_detected && *(data->map_started) && line[0] == '\n')
-//			empty_line_detected = 1;
+//		trimmed = ft_strtrim(line, " \t\n");
+//		if (!trimmed)
+//			fatal_error_exit(1, "Memory allocation error");
+//		if (handle_empty_line(data, trimmed, line, &encountered_empty))
+//			continue ;
+//		free(trimmed);
+//		if (encountered_empty)
+//			encountered_empty_error(line);
 //		ret = process_line(data, line);
 //		free(line);
 //		if (ret)
 //			return (1);
-//		line = get_next_line(fd);
 //	}
-//	if (empty_line_detected)
-//		fatal_error_exit(1, "Empty line within map data");
 //	return (0);
 //}

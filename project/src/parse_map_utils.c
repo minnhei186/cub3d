@@ -6,7 +6,7 @@
 /*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:55:06 by nkannan           #+#    #+#             */
-/*   Updated: 2025/02/07 13:10:36 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:37:39 by hosokawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,19 @@ int	add_map_line(t_map_data *map_data, const char *line)
 	if (!trimmed)
 		return (-1);
 	if (trimmed[0] == '\0')
-	{
-		free(trimmed);
-		fatal_error_exit(1, "Empty map row found");
-	}
+		empty_row_error(trimmed);
 	if (!validate_map_line(trimmed))
-	{
-		free(trimmed);
-		fatal_error_exit(1, "Map line contains invalid characters");
-	}
+		invalid_char_error(trimmed);
 	if (allocate_and_store_map_line(map_data, trimmed) < 0)
 		return (-1);
 	j = 0;
 	while (trimmed[j])
 	{
 		if (is_player_char(trimmed[j]))
+		{
 			if (handle_player(map_data, trimmed, j) < 0)
 				return (-1);
+		}
 		j++;
 	}
 	return (0);
@@ -84,4 +80,3 @@ int	handle_map_line(t_parse_data *d, char *line)
 	*(d->map_started) = 1;
 	return (0);
 }
-
