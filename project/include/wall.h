@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/11 17:01:07 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:07:34 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # include "get_next_line.h"
 # include "libft.h"
 # include "mlx.h"
+# include <X11/keysym.h>
 # include <errno.h>
 # include <math.h>
 # include <stdio.h>
-# include <X11/keysym.h>
 
 // mlx
 # define WIDTH 1280
@@ -159,7 +159,7 @@ typedef struct s_dda_info
 typedef struct s_tex_info
 {
 	int				tex_x;
-	int (*texture)[TEXWIDTH * TEXHEIGHT];
+	int				(*texture)[TEXWIDTH * TEXHEIGHT];
 	unsigned int	floor_color;
 	unsigned int	ceilling_color;
 
@@ -250,10 +250,11 @@ int					check_map_line_end(t_parse_data *d, char *line, int pos);
 void				encountered_empty_error(char *line);
 int					handle_empty_line(t_parse_data *data, char *trimmed,
 						char *line, int *encountered_empty);
-int	process_line_wrapper(t_parse_data *data, int *encountered_empty, char *line);
+int					process_line_wrapper(t_parse_data *data,
+						int *encountered_empty, char *line);
 
 // parser_line.c
-int	process_line(t_parse_data *d, char *line);
+int					process_line(t_parse_data *d, char *line);
 int					process_lines(int fd, t_parse_data *data);
 
 // map_data
