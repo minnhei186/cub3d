@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/11 17:07:34 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:09:56 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,9 +281,9 @@ void				copy_data(t_game *game, t_use_data *use_data);
 // init
 void				wall_init(t_game *game);
 void				camera_init(t_game *game);
-void				ddaInfo_init(t_game *game);
-void				worldMap_init(t_game *game);
-void				texInfo_init(t_game *game);
+void				dda_info_init(t_game *game);
+void				world_map_init(t_game *game);
+void				tex_info_init(t_game *game);
 void				game_init(t_game *game);
 
 // dda
