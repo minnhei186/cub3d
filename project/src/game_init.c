@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:09:43 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/03 11:58:49 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:53:51 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ void	camera_init(t_game *game)
 
 void	dda_info_init(t_game *game)
 {
-	game->dda_info.mapX = 0;
-	game->dda_info.mapY = 0;
-	game->dda_info.sideDistX = 0;
-	game->dda_info.sideDistY = 0;
-	game->dda_info.deltaDistX = 0;
-	game->dda_info.deltaDistY = 0;
-	game->dda_info.perpWallDist = 0;
-	game->dda_info.stepX = 0;
-	game->dda_info.stepY = 0;
+	game->dda_info.map_x = 0;
+	game->dda_info.map_y = 0;
+	game->dda_info.side_dist_x = 0;
+	game->dda_info.side_dist_y = 0;
+	game->dda_info.delta_dist_x = 0;
+	game->dda_info.delta_dist_y = 0;
+	game->dda_info.perp_wall_dist = 0;
+	game->dda_info.step_x = 0;
+	game->dda_info.step_y = 0;
 	game->dda_info.hit = 0;
 	game->dda_info.side = 0;
 }

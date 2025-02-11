@@ -6,7 +6,7 @@
 /*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:08:37 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/10 00:09:55 by nkannan          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:01:07 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,18 +139,18 @@ typedef struct s_camera
 
 typedef struct s_dda_info
 {
-	int				mapX;
-	int				mapY;
+	int				map_x;
+	int				map_y;
 
-	double			sideDistX;
-	double			sideDistY;
+	double			side_dist_x;
+	double			side_dist_y;
 
-	double			deltaDistX;
-	double			deltaDistY;
+	double			delta_dist_x;
+	double			delta_dist_y;
 
-	double			perpWallDist;
-	int				stepX;
-	int				stepY;
+	double			perp_wall_dist;
+	int				step_x;
+	int				step_y;
 
 	int				hit;
 	int				side;
@@ -175,18 +175,18 @@ typedef struct s_game
 	int				**map;
 	int				map_height;
 	int				map_width;
-	int				worldMap[10][10];
+	int				world_map[10][10];
 
 }					t_game;
 
 typedef struct s_draw
 {
-	int				drawStart;
-	int				drawEnd;
-	int				lineHeight;
+	int				draw_start;
+	int				draw_end;
+	int				line_height;
 
 	double			step;
-	double			texPos;
+	double			tex_pos;
 }					t_draw;
 
 typedef struct s_parse_data
@@ -293,7 +293,7 @@ void				calculate_perp_hight(t_dda_info *dda_info);
 
 // draw_info
 void				init_draw_info(t_draw *draw);
-void				get_draw_wall_info(t_draw *draw, double perpWallDist);
+void				get_draw_wall_info(t_draw *draw, double perp_wall_dist);
 void				get_draw_texture_info(t_draw *draw);
 
 // draw

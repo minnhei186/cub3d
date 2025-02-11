@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosokawa <hosokawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkannan <nkannan@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:39:05 by hosokawa          #+#    #+#             */
-/*   Updated: 2025/02/06 17:43:44 by hosokawa         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:01:07 by nkannan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ unsigned int	get_wall_color(t_game *game, int tex_y)
 		tex_y = TEXHEIGHT - 1;
 	if (game->dda_info.side == 0)
 	{
-		if (game->dda_info.stepX > 0)
+		if (game->dda_info.step_x > 0)
 			tex_color = game->tex_info.texture[SOUTH_INDEX][TEXWIDTH * tex_y
 				+ game->tex_info.tex_x];
 		else
@@ -59,7 +59,7 @@ unsigned int	get_wall_color(t_game *game, int tex_y)
 	}
 	else
 	{
-		if (game->dda_info.stepY > 0)
+		if (game->dda_info.step_y > 0)
 			tex_color = game->tex_info.texture[WEST_INDEX][TEXWIDTH * tex_y
 				+ game->tex_info.tex_x];
 		else
@@ -76,16 +76,16 @@ void	draw_world(int pixel, t_draw *draw, t_game *game)
 	int				tex_y;
 
 	i = 0;
-	while (i < draw->drawStart)
+	while (i < draw->draw_start)
 	{
 		my_pixel_put(pixel, i, game->tex_info.ceilling_color, &game->wall);
 		i++;
 	}
-	while (i < draw->drawEnd)
+	while (i < draw->draw_end)
 	{
-		tex_y = (int)(draw->texPos);
+		tex_y = (int)(draw->tex_pos);
 		tex_color = get_wall_color(game, tex_y);
-		draw->texPos += draw->step;
+		draw->tex_pos += draw->step;
 		if ((tex_color & 0xFF000000) == 0)
 			my_pixel_put(pixel, i, tex_color, &game->wall);
 		i++;
@@ -102,19 +102,19 @@ void	draw(int pixel, t_game *game)
 	t_draw	draw;
 
 	init_draw_info(&draw);
-	get_draw_wall_info(&draw, game->dda_info.perpWallDist);
+	get_draw_wall_info(&draw, game->dda_info.perp_wall_dist);
 	get_draw_texture_info(&draw);
 	draw_world(pixel, &draw, game);
 }
 
 //
-// while (i < draw->drawEnd)
+// while (i < draw->draw_end)
 //	{
-//		tex_y = (int)(draw->texPos);
+//		tex_y = (int)(draw->tex_pos);
 //		if (tex_y < 0)
 //			tex_y = 0;
 //		else if (tex_y >= TEXHEIGHT)
 //			tex_y = TEXHEIGHT - 1;
-//		draw->texPos += draw->step;
+//		draw->tex_pos += draw->step;
 //		tex_color = get_wall_color(game, tex_y);
 //
